@@ -11,7 +11,7 @@
             height="55"
           />
           <h5 class="mt-4">
-            {{ $auth.user.full_name }} ({{ $auth.user.user_type }})
+            {{ $auth.user.full_name }} ({{ $auth.user.username }})
           </h5>
 
         </div>
@@ -24,35 +24,18 @@
 export default {
   head() {
     return {
-      title: "স্বাস্থ্যসেবক || Profile",
+      title: "Profile",
     };
   },
   data() {
     return {
-      blogs: [],
     };
   },
   methods: {
-    async getBlogs() {
-      await this.$axios
-        .get(`blog/?user=${this.$auth.user.id}`)
-        // .get(`blog/`)
-        .then((res) => {
-          // console.log(res);
-          if (res.status === 200) {
-            this.blogs = res.data;
-          }
-        })
-        .catch((error) => {
-          // console.log(error.response);
-          // console.log(error.response.data.message || error.message);
-          // context.commit('error', error)
-        });
-    },
+
   },
   mounted() {
     // this.$auth.fetchUser();
-    this.getBlogs();
   },
 
   beforeCreate() {

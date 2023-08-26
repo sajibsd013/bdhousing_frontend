@@ -5,7 +5,7 @@
         <h4 class="">Thank you..Your data is stored!</h4>
         <p class="small text-muted mb-4">Will contact you soon</p>
 
-        <NuxtLink to="/" class="">Back to home</NuxtLink>
+        <NuxtLink to="/tex" class="">Add New Data</NuxtLink>
       </div>
     </div>
   </section>
