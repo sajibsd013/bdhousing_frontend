@@ -2,16 +2,22 @@
   <div>
     <ul class="navbar-nav mx-auto mt-lg-0">
       <li class="nav-item">
-        <NLink class="nav-link" aria-current="page" to="/"> Home </NLink>
+        <NLink class="nav-link" aria-current="page" to="/"> হোম </NLink>
       </li>
       <li class="nav-item">
-        <NLink class="nav-link" to="/tex">Housing Tex </NLink>
+        <NLink class="nav-link" to="/house">খানা প্রদানের তথ্য</NLink>
       </li>
       <li class="nav-item">
-        <NLink class="nav-link" to="/about"> What are we? </NLink>
+        <NLink class="nav-link" to="/tex">কর মূল্যয়ন তথ্য</NLink>
       </li>
       <li class="nav-item">
-        <NLink class="nav-link" to="/contact-us"> Contact us</NLink>
+        <NLink class="nav-link" to="/faq">সচরাচর জিজ্ঞাসা</NLink>
+      </li>
+      <li class="nav-item">
+        <NLink class="nav-link" to="/about"> আমাদের সম্পর্কে </NLink>
+      </li>
+      <li class="nav-item">
+        <NLink class="nav-link" to="/contact-us"> যোগাযোগ করুন</NLink>
       </li>
     </ul>
   </div>
@@ -21,4 +27,14 @@
 export default {};
 </script>
 
-<style></style>
+<style>
+.nav-link{
+  /* color: black!important; */
+  font-size: 14px!important;
+}
+.nav-item .nav-link:hover,
+.nuxt-link-exact-active {
+  /* color: var(--secondary-text) !important; */
+  color: #0d6efd !important;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
   <section class="container pb-5 pt-3 mb-5">
     <div class="accordion col-md-8 w-md-100" id="accordionExample">
-      <h3 class="text-dark">FAQs</h3>
+      <h3 class="text-dark">সচরাচর জিজ্ঞাসা</h3>
       <template v-for="(faq, index) in faqs">
         <div :key="index">
           <div class="accordion-item">

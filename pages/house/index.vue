@@ -2,59 +2,32 @@
   <section class="container pb-5 pt-3 mb-5">
     <div class="col-lg-8 col-md-10 mx-auto py-3">
       <div class="p-3 card bg-white border mb-5" v-if="$auth.loggedIn">
-        <h6 class="fw-semibold">কর মূল্যয়ন খানা প্রদানের তথ্য</h6>
-        <!-- {{form_data}} -->
+        <h6 class="mb fw-semibold">খানা প্রদানের ট্যাক্স আদায়কৃত তথ্য</h6>
         <hr />
         <ValidationObserver v-slot="{ handleSubmit }">
           <form class="form small" @submit.prevent="handleSubmit(submitForm)">
             <div class="row g-2">
               <div class="mb-2 col-md-6">
-                <label for="house_owner_name" class="small form-label"
-                  >বাড়ির/ দোকান মালিকের নাম</label
-                >
+                <label for="name" class="small form-label">নাম</label>
                 <input
                   class="form-control form-control-sm"
-                  id="house_owner_name"
+                  id="name"
                   required
-                  v-model="form_data.house_owner_name"
+                  v-model="form_data.name"
                 />
               </div>
               <div class="mb-2 col-md-6">
-                <label for="house_owner_father" class="small form-label"
+                <label for="father_name" class="small form-label"
                   >পিতার নাম</label
                 >
                 <input
                   class="form-control form-control-sm"
-                  id="house_owner_father"
+                  id="father_name"
                   required
-                  v-model="form_data.house_owner_father"
+                  v-model="form_data.father_name"
                 />
               </div>
 
-              <div class="mb-2 col-md-4">
-                <label for="total_male" class="small form-label"
-                  >পরিবারের সদস্য (পুরুষ)</label
-                >
-                <input
-                  type="number"
-                  class="form-control form-control-sm"
-                  id="total_male"
-                  required
-                  v-model="form_data.total_male"
-                />
-              </div>
-              <div class="mb-2 col-md-4">
-                <label for="total_female" class="small form-label"
-                  >পরিবারের সদস্য (মহিলা)</label
-                >
-                <input
-                  type="number"
-                  class="form-control form-control-sm"
-                  id="total_female"
-                  required
-                  v-model="form_data.total_female"
-                />
-              </div>
               <div class="mb-2 col-md-4">
                 <label for="Division " class="small form-label">বিভাগ</label>
                 <select
@@ -139,6 +112,7 @@
                   </template>
                 </select>
               </div>
+
               <div class="mb-2 col-md-4">
                 <label for="village" class="small form-label">গ্রাম</label>
                 <input
@@ -149,73 +123,81 @@
                 />
               </div>
               <div class="mb-2 col-md-4">
-                <label for="union_code" class="small form-label">ইউনিয়ন কোড</label>
+                <label for="holding" class="small form-label"
+                  >হোল্ডিং নম্বর</label
+                >
                 <input
                   class="form-control form-control-sm"
-                  id="union_code"
+                  id="holding"
                   required
-                  v-model="form_data.union_code"
+                  v-model="form_data.holding"
                 />
               </div>
               <div class="mb-2 col-md-4">
-                <label for="mobile" class="small form-label">মোবাইল নং</label>
-                <input
-                  class="form-control form-control-sm"
-                  id="mobile"
-                  required
-                  v-model="form_data.mobile"
-                />
-              </div>
-              <div class="mb-2 col-md-4">
-                <label for="income_source " class="small form-label"
-                  >আয়ের উৎস
-                </label>
-                <select
-                  class="form-select form-select-sm"
-                  aria-label="Default select example"
-                  v-model="form_data.income_source"
-                  required
-                >
-                  <option value="" disabled selected>select one</option>
-                  <template v-for="data in work_options">
-                    <option :value="data" :key="data">
-                      {{ data }}
-                    </option>
-                  </template>
-                </select>
-              </div>
-              <div class="mb-2 col-md-4">
-                <label for="building_nature " class="small form-label"
-                  >গৃহ ভবনের প্রকৃতি</label
-                >
-                <select
-                  class="form-select form-select-sm"
-                  aria-label="Default select example"
-                  v-model="form_data.building_nature"
-                  required
-                >
-                  <option value="" disabled selected>select one</option>
-                  <template v-for="data in building_nature_options">
-                    <option :value="data" :key="data">
-                      {{ data }}
-                    </option>
-                  </template>
-                </select>
-              </div>
-
-              <div class="mb-2 col-md-4">
-                <label for="total_hall_tex" class="small form-label"
+                <label for="hall_tex" class="small form-label"
                   >হাল ট্যাক্স</label
                 >
                 <input
                   class="form-control form-control-sm"
-                  id="total_hall_tex"
+                  id="hall_tex"
                   required
-                  v-model="form_data.total_hall_tex"
+                  v-model="form_data.hall_tex"
                 />
               </div>
-
+              <div class="mb-2 col-md-4">
+                <label for="due_tex" class="small form-label">বকেয়া</label>
+                <input
+                  class="form-control form-control-sm"
+                  id="due_tex"
+                  required
+                  v-model="form_data.due_tex"
+                />
+              </div>
+              <div class="mb-2 col-md-4">
+                <label for="total_tex" class="small form-label"
+                  >মোট ট্যাক্স</label
+                >
+                <input
+                  class="form-control form-control-sm"
+                  id="total_tex"
+                  required
+                  v-model="form_data.total_tex"
+                />
+              </div>
+              <div class="mb-2 col-md-4">
+                <label for="collection_year" class="small form-label"
+                  >আদায় সন</label
+                >
+                <input
+                  class="form-control form-control-sm"
+                  id="collection_year"
+                  required
+                  v-model="form_data.collection_year"
+                />
+              </div>
+              <div class="mb-2 col-md-4">
+                <label for="date" class="small form-label">তারিখ</label>
+                <input
+                  type="date"
+                  class="form-control form-control-sm"
+                  id="date"
+                  required
+                  v-model="form_data.date"
+                />
+              </div>
+              <div class="mb-2 col-md-4">
+                <label for="mobile_no" class="small form-label"
+                  >মোবাইল নং</label
+                >
+                <input
+                  class="form-control form-control-sm"
+                  id="mobile_no"
+                  required
+                  v-model="form_data.mobile_no"
+                />
+              </div>
             </div>
+
             <div class="my-3">
               <div class="d-flex align-items-center mb-2">
                 <input type="checkbox" id="checkbox" name="checkbox" required />
@@ -224,6 +206,8 @@
 
               <div class="d-grid gap-2">
                 <button class="btn btn-primary btn-sm" type="submit">
+                  <!-- :disabled="phone.length != 10 || disable_btn" -->
+
                   Submit
                 </button>
               </div>
@@ -231,11 +215,14 @@
           </form>
         </ValidationObserver>
       </div>
+
       <div v-else>
         <div class="alert alert-danger" role="alert">
           You have no permission!
         </div>
       </div>
+      <!-- {{ form_data }} -->
+
     </div>
   </section>
 </template>
@@ -248,48 +235,6 @@ export default {
   components: {
     ValidationObserver,
     ValidationProvider,
-  },
-
-  data() {
-    return {
-      work_options: [
-        "কৃষি",
-        "ব্যবসা",
-        "প্রবাসি",
-        "দিন মজুর",
-        "চাকরিজীবী",
-        "অন্যান্য",
-      ],
-      building_nature_options: [
-        "পাকা",
-        "আধা পাকা ",
-        "টিন শেড",
-        "কাচাঁ",
-        "সরকারী ভবণ",
-        "1 তলা বিশিষ্ট",
-        "2 তলা বিশিষ্ট",
-        "3 তলা বিশিষ্ট",
-        "4 তলা বিশিষ্ট",
-        "5 তলা বিশিষ্ট",
-      ],
-      form_data: {
-        house_owner_name: "",
-        house_owner_father: "",
-        total_male: "",
-        total_female: "",
-        income_source: "",
-        building_nature: "",
-        division: "",
-        district: "",
-        upazila: "",
-        union: "",
-        union_code: "",
-        ward: "",
-        village: "",
-        total_hall_tex: "",
-        mobile: "",
-      },
-    };
   },
   computed: {
     getDivisions() {
@@ -323,10 +268,35 @@ export default {
       return un_list;
     },
   },
+  data() {
+    return {
+      form_data: {
+        name: "",
+        father_name: "",
+        division: "",
+        district: "",
+        upazila: "",
+        union: "",
+        ward: "",
+        holding: "",
+        hall_tex: "",
+        due_tex: "",
+        total_tex: "",
+        collection_year: "",
+        date: "",
+        mobile_no: "",
+        village: "",
+      },
+    };
+  },
 
   methods: {
     async submitForm() {
+      this.form_data.division = this.form_data.division['bn_name']
+      this.form_data.district = this.form_data.district['bn_name']
+      this.form_data.upazila = this.form_data.upazila['bn_name']
       console.log(this.form_data);
+
       // this.$nextTick(() => {
       //   this.$nuxt.$loading.start();
       //   this.$axios
@@ -355,9 +325,9 @@ export default {
   },
   mounted() {},
   beforeCreate() {
-    if (!this.$auth.$state.loggedIn) {
-      this.$router.push("/");
-    }
+    // if (!this.$auth.$state.loggedIn) {
+    //   this.$router.push("/");
+    // }
   },
 };
 </script>

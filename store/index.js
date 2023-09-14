@@ -1,59 +1,38 @@
 export const state = () => ({
-  country_code: [],
-  accept: false,
-  doctor_info: {
-    name: "Dr. Xyz",
-    qualifications: "MBBS,FCPS,(Medicine)",
-    specialist: "Medicine Specialist",
-    experience:
-      "Medical Officer \nSylhet MAG Osmani Medical College & Hospital.",
-    chamber: "Comfort Medical Services, Kajalshah, Sylhet.",
-    chamber_time:
-      "প্রতিদিন- বিকাল ৩টা থেকে রাত ৮টা \nশনি থেকে বৃহস্পতিবার (শুক্রবার বন্ধ)",
-  },
+  geodata: [],
 });
 
 export const getters = {
-  CountryCode(state) {
-    return state.country_code;
-  },
-  isAccept(state) {
-    return state.accept;
-  },
-  getDoctor(state) {
-    return state.doctor_info;
+  getGeodata(state) {
+    return state.geodata;
   },
 };
 
 export const mutations = {
-  setCountryCodes(state, country_code) {
-    state.country_code = country_code;
-  },
-  setAccept(state, accept) {
-    state.accept = accept;
-  },
-  setDoctor(state, doctor_info) {
-    state.doctor_info = doctor_info;
+  setGeodata(state, data) {
+    state.geodata = data;
   },
 };
 
 export const actions = {
-  async getCountryCodes({ commit }) {
-    console.log("Calling....");
+  async get_data({ commit }) {
+    const API_URL = window.location.origin + "/data/data.json";
+    console.log(API_URL);
+
     await this.$axios
-      .get(`prescription/data/`, {
+      .get(API_URL, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .then((res) => {
+        console.log(res);
         if (res.status === 200) {
-          commit("setCountryCode", res.data);
+          commit("setGeodata", res.data);
         }
       })
       .catch((error) => {
-        console.log(error.response.data.message || error.message);
-        // context.commit('error', error)
+        console.log(error);
       });
   },
 };

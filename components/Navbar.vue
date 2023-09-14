@@ -59,11 +59,9 @@
                 aria-expanded="false"
               >
                 <span style="font-size: 14px">
-                  welcome
-
-                  <small class="" style="font-weight: 500; color: #084298"
+                  Hello <small class="" style="font-weight: 500; color: #084298"
                     >{{ $auth.user.full_name }} </small
-                  >!
+                  >
                 </span>
 
                 <img
@@ -282,6 +280,7 @@ export default {
 };
 </script>
 <style scoped>
+
 .dropdown-item:hover,
 .nav-item .nav-link:hover,
 .nuxt-link-exact-active {
