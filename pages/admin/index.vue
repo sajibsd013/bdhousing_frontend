@@ -17,7 +17,7 @@ export default {
   name: "AdminPage",
   layout: "admin",
   beforeCreate() {
-    if (!this.$auth.$state.loggedIn || this.$auth.user.is_admin === false) {
+    if (!this.$auth.$state.loggedIn) {
       this.$router.push("/");
     }
   },

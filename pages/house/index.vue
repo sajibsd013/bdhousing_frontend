@@ -17,14 +17,12 @@
                 />
               </div>
               <div class="mb-2 col-md-6">
-                <label for="father_name" class="small form-label"
-                  >পিতার নাম</label
-                >
+                <label for="father" class="small form-label">পিতার নাম</label>
                 <input
                   class="form-control form-control-sm"
-                  id="father_name"
+                  id="father"
                   required
-                  v-model="form_data.father_name"
+                  v-model="form_data.father"
                 />
               </div>
 
@@ -134,34 +132,34 @@
                 />
               </div>
               <div class="mb-2 col-md-4">
-                <label for="hall_tex" class="small form-label"
+                <label for="hall_tax" class="small form-label"
                   >হাল ট্যাক্স</label
                 >
                 <input
                   class="form-control form-control-sm"
-                  id="hall_tex"
+                  id="hall_tax"
                   required
-                  v-model="form_data.hall_tex"
+                  v-model="form_data.hall_tax"
                 />
               </div>
               <div class="mb-2 col-md-4">
-                <label for="due_tex" class="small form-label">বকেয়া</label>
+                <label for="due_tax" class="small form-label">বকেয়া</label>
                 <input
                   class="form-control form-control-sm"
-                  id="due_tex"
+                  id="due_tax"
                   required
-                  v-model="form_data.due_tex"
+                  v-model="form_data.due_tax"
                 />
               </div>
               <div class="mb-2 col-md-4">
-                <label for="total_tex" class="small form-label"
+                <label for="total_tax" class="small form-label"
                   >মোট ট্যাক্স</label
                 >
                 <input
                   class="form-control form-control-sm"
-                  id="total_tex"
+                  id="total_tax"
                   required
-                  v-model="form_data.total_tex"
+                  v-model="form_data.total_tax"
                 />
               </div>
               <div class="mb-2 col-md-4">
@@ -186,14 +184,12 @@
                 />
               </div>
               <div class="mb-2 col-md-4">
-                <label for="mobile_no" class="small form-label"
-                  >মোবাইল নং</label
-                >
+                <label for="mobile" class="small form-label">মোবাইল নং</label>
                 <input
                   class="form-control form-control-sm"
-                  id="mobile_no"
+                  id="mobile"
                   required
-                  v-model="form_data.mobile_no"
+                  v-model="form_data.mobile"
                 />
               </div>
             </div>
@@ -222,7 +218,6 @@
         </div>
       </div>
       <!-- {{ form_data }} -->
-
     </div>
   </section>
 </template>
@@ -267,58 +262,66 @@ export default {
       }
       return un_list;
     },
+    getUserID() {
+      if (this.$auth.user.id) {
+        return this.$auth.user.id;
+      }
+      return "";
+    },
   },
   data() {
     return {
       form_data: {
         name: "",
-        father_name: "",
+        father: "",
         division: "",
         district: "",
         upazila: "",
         union: "",
         ward: "",
         holding: "",
-        hall_tex: "",
-        due_tex: "",
-        total_tex: "",
+        hall_tax: "",
+        due_tax: "",
+        total_tax: "",
         collection_year: "",
         date: "",
-        mobile_no: "",
+        mobile: "",
         village: "",
+        user: "",
       },
     };
   },
 
   methods: {
     async submitForm() {
-      this.form_data.division = this.form_data.division['bn_name']
-      this.form_data.district = this.form_data.district['bn_name']
-      this.form_data.upazila = this.form_data.upazila['bn_name']
+      this.form_data.division = this.form_data.division["bn_name"];
+      this.form_data.district = this.form_data.district["bn_name"];
+      this.form_data.upazila = this.form_data.upazila["bn_name"];
+      this.form_data.user = this.getUserID;
       console.log(this.form_data);
 
-      // this.$nextTick(() => {
-      //   this.$nuxt.$loading.start();
-      //   this.$axios
-      //     .post(`api/tex/`, this.form_data, {
-      //       headers: {
-      //         "Content-Type": "multipart/form-data",
-      //       },
-      //     })
-      //     .then((res) => {
-      //       if (res.status === 201) {
-      //         this.$toast.success("Success! we will contact you soon..");
-      //         this.$router.push("/success");
-      //       }
-      //       this.$nuxt.$loading.finish();
-      //     })
-      //     .catch((error) => {
-      //       this.$nuxt.$loading.finish();
-      //       this.$toast.error(error.message || error.response.data.message);
+      this.$nextTick(() => {
+        this.$nuxt.$loading.start();
+        this.$axios
+          .post(`/house/`, this.form_data, {
+            headers: {
+              // "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((res) => {
+            if (res.status === 201) {
+              this.$toast.success("Success! we will contact you soon..");
+              this.$router.push("/success?q=house");
+            }
+            this.$nuxt.$loading.finish();
+          })
+          .catch((error) => {
+            this.$nuxt.$loading.finish();
+            this.$toast.error(error.message || error.response.data.message);
 
-      //       console.log(error.message || error.response.data.message);
-      //     });
-      // });
+            console.log(error.message || error.response.data.message);
+          });
+      });
 
       return;
     },

@@ -22,9 +22,9 @@
                   aria-expanded="false"
                 >
                   <span style="font-size: 14px" class="">
-                    welcome
+                    
                     <small class="" style="font-weight: 500; color: #084298"
-                      >{{ $auth.user.full_name }} </small
+                      >{{ $auth.user.username }} </small
                     >!
                   </span>
 

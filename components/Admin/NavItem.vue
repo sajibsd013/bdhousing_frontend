@@ -10,18 +10,18 @@
         class=""
         width="35"
       />
-      <span class="text-muted fw-semibold">Dashboard</span>
+      <span class="text-muted fw-semibold">ড্যাশবোর্ড </span>
     </NLink>
     <!-- <hr class="mt-0 mb-4" /> -->
     <div class="top card-body d-flex flex-column p-1">
       <NuxtLink class="text-muted fw-semibold app-nav-item" to="/admin">
-        <i class="icofont-dashboard me-2"></i>Dashboard
+        <i class="icofont-dashboard me-2"></i>ড্যাশবোর্ড
       </NuxtLink>
-      <NuxtLink
-        to="/admin/customers"
-        class="text-muted fw-semibold app-nav-item"
-      >
-        <i class="icofont-users me-2"></i>Customers
+      <NuxtLink to="/admin/tax" class="text-muted fw-semibold app-nav-item">
+        <i class="icofont-chart-histogram-alt me-2"></i>কর মূল্যয়ন তথ্য
+      </NuxtLink>
+      <NuxtLink to="/admin/house" class="text-muted fw-semibold app-nav-item">
+        <i class="icofont-ui-home me-2"></i>খানা প্রদানের তথ্য
       </NuxtLink>
       <NuxtLink
         class="text-muted fw-semibold app-nav-item"
@@ -87,7 +87,6 @@ i {
   border-left: 3px solid #084092;
 }
 
-
 /* Medium devices (landscape tablets, 575768px and up) */
 @media only screen and (max-width: 768px) {
   .app-nav-item {
@@ -99,5 +98,4 @@ i {
     font-size: 18px !important;
   }
 }
-
 </style>

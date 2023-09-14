@@ -12,6 +12,8 @@ export default {
   computed: {},
   mounted() {
     console.log("Called Data!");
+    this.$store.dispatch("get_data")
+
   },
 };
 </script>

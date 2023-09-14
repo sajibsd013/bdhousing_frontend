@@ -9,25 +9,23 @@
           <form class="form small" @submit.prevent="handleSubmit(submitForm)">
             <div class="row g-2">
               <div class="mb-2 col-md-6">
-                <label for="house_owner_name" class="small form-label"
+                <label for="name" class="small form-label"
                   >বাড়ির/ দোকান মালিকের নাম</label
                 >
                 <input
                   class="form-control form-control-sm"
-                  id="house_owner_name"
+                  id="name"
                   required
-                  v-model="form_data.house_owner_name"
+                  v-model="form_data.name"
                 />
               </div>
               <div class="mb-2 col-md-6">
-                <label for="house_owner_father" class="small form-label"
-                  >পিতার নাম</label
-                >
+                <label for="father" class="small form-label">পিতার নাম</label>
                 <input
                   class="form-control form-control-sm"
-                  id="house_owner_father"
+                  id="father"
                   required
-                  v-model="form_data.house_owner_father"
+                  v-model="form_data.father"
                 />
               </div>
 
@@ -149,7 +147,9 @@
                 />
               </div>
               <div class="mb-2 col-md-4">
-                <label for="union_code" class="small form-label">ইউনিয়ন কোড</label>
+                <label for="union_code" class="small form-label"
+                  >ইউনিয়ন কোড</label
+                >
                 <input
                   class="form-control form-control-sm"
                   id="union_code"
@@ -204,17 +204,16 @@
               </div>
 
               <div class="mb-2 col-md-4">
-                <label for="total_hall_tex" class="small form-label"
+                <label for="hall_tax" class="small form-label"
                   >হাল ট্যাক্স</label
                 >
                 <input
                   class="form-control form-control-sm"
-                  id="total_hall_tex"
+                  id="hall_tax"
                   required
-                  v-model="form_data.total_hall_tex"
+                  v-model="form_data.hall_tax"
                 />
               </div>
-
             </div>
             <div class="my-3">
               <div class="d-flex align-items-center mb-2">
@@ -273,8 +272,8 @@ export default {
         "5 তলা বিশিষ্ট",
       ],
       form_data: {
-        house_owner_name: "",
-        house_owner_father: "",
+        name: "",
+        father: "",
         total_male: "",
         total_female: "",
         income_source: "",
@@ -286,8 +285,9 @@ export default {
         union_code: "",
         ward: "",
         village: "",
-        total_hall_tex: "",
+        hall_tax: "",
         mobile: "",
+        user: ""
       },
     };
   },
@@ -322,33 +322,45 @@ export default {
       }
       return un_list;
     },
+    getUserID() {
+      if (this.$auth.user.id) {
+        return this.$auth.user.id;
+      }
+      return "";
+    },
   },
 
   methods: {
     async submitForm() {
-      console.log(this.form_data);
-      // this.$nextTick(() => {
-      //   this.$nuxt.$loading.start();
-      //   this.$axios
-      //     .post(`api/tex/`, this.form_data, {
-      //       headers: {
-      //         "Content-Type": "multipart/form-data",
-      //       },
-      //     })
-      //     .then((res) => {
-      //       if (res.status === 201) {
-      //         this.$toast.success("Success! we will contact you soon..");
-      //         this.$router.push("/success");
-      //       }
-      //       this.$nuxt.$loading.finish();
-      //     })
-      //     .catch((error) => {
-      //       this.$nuxt.$loading.finish();
-      //       this.$toast.error(error.message || error.response.data.message);
+      this.form_data.division = this.form_data.division["bn_name"];
+      this.form_data.district = this.form_data.district["bn_name"];
+      this.form_data.upazila = this.form_data.upazila["bn_name"];
+      this.form_data.user = this.getUserID;
 
-      //       console.log(error.message || error.response.data.message);
-      //     });
-      // });
+      console.log(this.form_data);
+      this.$nextTick(() => {
+        this.$nuxt.$loading.start();
+        this.$axios
+          .post(`/tax/`, this.form_data, {
+            headers: {
+              // "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((res) => {
+            if (res.status === 201) {
+              this.$toast.success("Success! we will contact you soon..");
+              this.$router.push("/success?q=tax");
+
+            }
+            this.$nuxt.$loading.finish();
+          })
+          .catch((error) => {
+            this.$nuxt.$loading.finish();
+            this.$toast.error(error.message || error.response.data.message);
+
+            console.log(error.message || error.response.data.message);
+          });
+      });
 
       return;
     },

@@ -59,9 +59,10 @@
                 aria-expanded="false"
               >
                 <span style="font-size: 14px">
-                  Hello <small class="" style="font-weight: 500; color: #084298"
-                    >{{ $auth.user.full_name }} </small
-                  >
+                  
+                  <small class="" style="font-weight: 500; color: #084298"
+                    >{{ $auth.user.username }}
+                  </small>
                 </span>
 
                 <img
@@ -71,9 +72,10 @@
                 />
               </a>
               <ul class="dropdown-menu" aria-labelledby="">
-                <li v-if="this.$auth.user && this.$auth.user.is_admin">
+                <!-- <li v-if="this.$auth.user && this.$auth.user.is_admin"> -->
+                <li v-if="this.$auth.user">
                   <NuxtLink to="/admin" class="dropdown-item">
-                    <i class="icofont-dashboard me-1"></i>Admin Dashboard
+                    <i class="icofont-dashboard me-1"></i>Dashboard
                   </NuxtLink>
                 </li>
                 <li class="">
@@ -102,8 +104,8 @@
           <template v-else>
             <div>
               <NuxtLink class="" to="/login">
-                <small class="btn btn-outline-dark btn-sm"
-                  > Admin Login <i class="icofont-sign-in"></i>
+                <small class="btn btn-outline-dark btn-sm">
+                  Admin Login <i class="icofont-sign-in"></i>
                 </small>
               </NuxtLink>
               <NuxtLink class="d-none" to="/register">
@@ -170,21 +172,27 @@
           <div class="card h-100 p-0 m-0 border-0">
             <div class="top card-body d-flex flex-column p-1 ps-3">
               <NuxtLink class="text-muted fw-semibold pb-3 app-nav-item" to="/">
-                <i class="icofont-home me-2"></i>Home
+                <i class="icofont-home me-2"></i>হোম
               </NuxtLink>
               <NuxtLink
                 class="text-muted fw-semibold pb-3 app-nav-item"
-                v-if="$auth.loggedIn"
-                to="/profile"
+                to="/tax"
               >
-                <i class="icofont-user me-2 small"></i>My account
+                <i class="icofont-support-faq me-2"></i>কর মূল্যয়ন তথ্য
+              </NuxtLink>
+              <NuxtLink
+                class="text-muted fw-semibold pb-3 app-nav-item"
+                to="/house"
+              >
+                <i class="icofont-support-faq me-2"></i>খানা প্রদানের তথ্য
               </NuxtLink>
               <NuxtLink
                 class="text-muted fw-semibold pb-3 app-nav-item"
                 to="/faq"
               >
-                <i class="icofont-support-faq me-2"></i>FAQs
+                <i class="icofont-support-faq me-2"></i>সচরাচর জিজ্ঞাসা
               </NuxtLink>
+            
             </div>
             <div
               class="bottom card-footer p-1 ps-3 mb-3 border-0 bg-white"
@@ -260,9 +268,7 @@ export default {
       show: false,
     };
   },
-  computed: {
-
-  },
+  computed: {},
   methods: {
     toggleNavbar() {
       this.show = !this.show;
@@ -274,13 +280,11 @@ export default {
     },
   },
   mounted() {
-
     console.log("Called Navbar!");
   },
 };
 </script>
 <style scoped>
-
 .dropdown-item:hover,
 .nav-item .nav-link:hover,
 .nuxt-link-exact-active {
