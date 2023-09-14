@@ -225,7 +225,7 @@
 
           <template v-if="$auth.loggedIn">
             <span class="small text-light fw-semibold fw-italic my-0 py-0"
-              >{{ $auth.user.full_name }}!</span
+              >{{ $auth.user.username }}!</span
             >
           </template>
           <template v-else>

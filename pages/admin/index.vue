@@ -3,7 +3,7 @@
     <div class="row my-2 mb-4 g-1 text-center">
 
     </div>
-    <div class="row">
+    <div class="row d-none">
       <div class="col-lg-8 col-md-7"></div>
       <div class="col-lg-4 col-md-5 shadow bg-white rounded p-3">
         <AdminNotifications />

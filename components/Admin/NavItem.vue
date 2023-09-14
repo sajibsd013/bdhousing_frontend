@@ -14,30 +14,17 @@
     </NLink>
     <!-- <hr class="mt-0 mb-4" /> -->
     <div class="top card-body d-flex flex-column p-1">
-      <NuxtLink class="text-muted fw-semibold app-nav-item" to="/admin">
+      <NuxtLink class="text-muted fw-semibold app-nav-item"  to="/admin">
         <i class="icofont-dashboard me-2"></i>ড্যাশবোর্ড
       </NuxtLink>
-      <NuxtLink to="/admin/tax" class="text-muted fw-semibold app-nav-item">
+      <NuxtLink to="/admin/tax"  class="text-muted small fw-semibold app-nav-item">
         <i class="icofont-chart-histogram-alt me-2"></i>কর মূল্যয়ন তথ্য
       </NuxtLink>
       <NuxtLink to="/admin/house" class="text-muted fw-semibold app-nav-item">
         <i class="icofont-ui-home me-2"></i>খানা প্রদানের তথ্য
       </NuxtLink>
-      <NuxtLink
-        class="text-muted fw-semibold app-nav-item"
-        to="/admin/analytics"
-      >
-        <i class="icofont-chart-histogram me-2"></i>Analytics
-      </NuxtLink>
-      <NuxtLink
-        class="text-muted fw-semibold app-nav-item"
-        to="/admin/messages"
-      >
-        <i class="icofont-ui-messaging me-2"></i>Messages
-      </NuxtLink>
-
       <NuxtLink class="text-muted fw-semibold app-nav-item" to="/admin/faq">
-        <i class="icofont-support-faq me-2"></i>FAQs
+        <i class="icofont-support-faq me-2"></i>সচরাচর জিজ্ঞাসা
       </NuxtLink>
     </div>
     <div
@@ -68,6 +55,7 @@ i {
 .nav-item .nav-link:hover,
 .nuxt-link-exact-active {
   /* color: var(--secondary-text) !important; */
+  
   color: #0d6efd !important;
   padding-left: 10px;
   background: #ededf1;
@@ -75,7 +63,7 @@ i {
 }
 .app-nav-item {
   width: 200px;
-  font-size: 13.5px !important;
+  font-size: 11px !important;
   transition: all ease-in-out 0.3s;
   margin-bottom: 1px;
   padding: 10.5px 16px;
@@ -89,13 +77,13 @@ i {
 
 /* Medium devices (landscape tablets, 575768px and up) */
 @media only screen and (max-width: 768px) {
-  .app-nav-item {
-    font-size: 12.5px !important;
+  /* .app-nav-item {
+    font-size: 9px !important;
     padding: 10px 16px;
   }
 
   i {
     font-size: 18px !important;
-  }
+  } */
 }
 </style>

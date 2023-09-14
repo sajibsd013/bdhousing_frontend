@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <div class="card shadow p-2 my-3 border-0">
+    <div class="card p-2 my-3 border-0">
       <div class="row">
-        <div class="mb-2 col-md-2">
+        <div class="mb-2 col-md-2 col-6">
           <label for="Division " class="small form-label">বিভাগ</label>
           <select
             class="form-select form-select-sm"
@@ -19,7 +19,7 @@
           </select>
         </div>
 
-        <div class="mb-2 col-md-2">
+        <div class="mb-2 col-md-2 col-6">
           <label for="districts" class="small form-label">জেলা</label>
           <select
             class="form-select form-select-sm"
@@ -37,7 +37,7 @@
           </select>
         </div>
 
-        <div class="mb-2 col-md-2">
+        <div class="mb-2 col-md-2 col-6">
           <label for="upazilas" class="small form-label">উপজেলা</label>
           <select
             class="form-select form-select-sm"
@@ -55,7 +55,7 @@
           </select>
         </div>
 
-        <div class="mb-2 col-md-2">
+        <div class="mb-2 col-md-2 col-6">
           <label for="union" class="small form-label">ইউনিয়ন</label>
           <select
             class="form-select form-select-sm"
@@ -72,7 +72,7 @@
           </select>
         </div>
 
-        <div class="mb-2 col-md-2">
+        <div class="mb-2 col-md-2 col-6">
           <label for="ওয়ার্ড" class="small form-label">ওয়ার্ড</label>
           <select
             class="form-select form-select-sm"
@@ -94,7 +94,25 @@
         :columns="columns"
         :rows="getSortedList"
         class="table-responsive"
-      />
+      >
+        <th slot="thead-tr">Actions</th>
+        <template slot="tbody-tr" scope="props">
+          <td class="d-flex">
+            <NuxtLink
+              :to="`/house?id=${props.row.id}`"
+              class="btn red darken-2 waves-effect waves-light compact-btn"
+            >
+              <i class="material-icons white-text">edit</i>
+            </NuxtLink>
+            <button
+              class="btn red darken-2 waves-effect waves-light compact-btn"
+              @click="(e) => deleteData(props.row, e)"
+            >
+              <i class="material-icons white-text">delete</i>
+            </button>
+          </td>
+        </template>
+      </DataTable>
     </div>
   </div>
 </template>
@@ -103,7 +121,7 @@
 export default {
   head() {
     return {
-      title: "Admin || House ",
+      title: "Admin || House",
     };
   },
   data() {
@@ -223,6 +241,32 @@ export default {
           // context.commit('error', error)
         });
     },
+      async deleteData(data) {
+      console.log(data);
+      if (window.confirm("Are you sure ?")) {
+        this.$nextTick(() => {
+          this.$nuxt.$loading.start();
+          this.$axios
+            .delete(`/house/${data.id}/`, {
+              headers: {
+                // "Content-Type": "multipart/form-data",
+              },
+            })
+            .then((res) => {
+              this.getData();
+              this.$nuxt.$loading.finish();
+            })
+            .catch((error) => {
+              this.$nuxt.$loading.finish();
+              this.$toast.error(error.message || error.response.data.message);
+
+              console.log(error.message || error.response.data.message);
+            });
+        });
+      }
+
+      return;
+    },
   },
   mounted() {
     this.getData();
@@ -239,4 +283,7 @@ export default {
 
 <style>
 /* Materialize Table style */
+
+.table-responsive {
+}
 </style>
