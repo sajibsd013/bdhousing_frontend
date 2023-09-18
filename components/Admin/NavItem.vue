@@ -17,6 +17,9 @@
       <NuxtLink class="text-muted fw-semibold app-nav-item"  to="/admin">
         <i class="icofont-dashboard me-2"></i>ড্যাশবোর্ড
       </NuxtLink>
+      <NuxtLink to="/admin/users"  class="text-muted small fw-semibold app-nav-item">
+        <i class="icofont-users me-2"></i>ব্যবহারকারী
+      </NuxtLink>
       <NuxtLink to="/admin/tax"  class="text-muted small fw-semibold app-nav-item">
         <i class="icofont-chart-histogram-alt me-2"></i>কর মূল্যয়ন তথ্য
       </NuxtLink>
