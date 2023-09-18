@@ -6,11 +6,10 @@
     >
       <img
         src="~/static/img/logo.png"
-        alt="sasthosebok.com"
+        alt=""
+        width="150"
         class=""
-        width="35"
       />
-      <span class="text-muted fw-semibold">ড্যাশবোর্ড </span>
     </NLink>
     <!-- <hr class="mt-0 mb-4" /> -->
     <div class="top card-body d-flex flex-column p-1">

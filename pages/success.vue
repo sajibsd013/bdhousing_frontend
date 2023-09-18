@@ -15,7 +15,7 @@ export default {
   name: "SuccessPage",
     head() {
     return {
-      title: "স্বাস্থ্যসেবক || Success ",
+      title: "Success ",
     };
   },
 };

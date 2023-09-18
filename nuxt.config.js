@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "BD Housing",
+    title: "Bangladesh Tax Digitization",
     htmlAttrs: {
       lang: "en",
     },
@@ -52,6 +52,8 @@ export default {
     "~/plugins/vee-validate",
     { src: "~/plugins/bootstrap.js", mode: "client" },
     { src: "~/plugins/vue-datepicker", ssr: false },
+    { src: "~/plugins/highcharts.js", mode: "client" },
+
     // {
     //   src: "~/plugins/tawk-messenger.client.js",
     //   mode: "client",

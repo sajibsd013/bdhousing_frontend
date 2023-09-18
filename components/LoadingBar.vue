@@ -4,9 +4,9 @@
       <div class="text-center d-flex align-items-center flex-column">
         <img
           src="~/static/img/logo.png"
-          alt="sasthosebok.com"
+          alt=""
           class="d-none"
-          width="50"
+          width="100"
         />
         <div class="spinner-grow my-5" role="status">
           <!-- <small class="  small fw-bold mt-1 text-muted" style="font-size:10px">Loading...</small> -->

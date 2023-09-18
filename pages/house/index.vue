@@ -224,7 +224,7 @@
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 
 export default {
-  name: "Doctor",
+  name: "House",
   components: {
     ValidationObserver,
     ValidationProvider,

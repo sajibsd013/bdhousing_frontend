@@ -31,4 +31,6 @@ export default {
 .nuxt_root {
   min-height: 100vh !important;
 }
+
 </style>
+

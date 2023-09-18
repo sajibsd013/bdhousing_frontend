@@ -8,7 +8,7 @@
 export default {
   head() {
     return {
-      title: "স্বাস্থ্যসেবক || About us ",
+      title: "About us ",
     };
   },
 };

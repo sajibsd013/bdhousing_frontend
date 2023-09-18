@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <PartialsServices/>
+  <div class="container">
+    
   </div>
 </template>
 

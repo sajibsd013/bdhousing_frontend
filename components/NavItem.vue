@@ -5,6 +5,9 @@
         <NLink class="nav-link" aria-current="page" to="/"> হোম </NLink>
       </li>
       <li class="nav-item">
+        <NLink class="nav-link" to="/check-tax">ট্যাক্স যাচাই</NLink>
+      </li>
+      <li class="nav-item">
         <NLink class="nav-link" to="/house">খানা প্রদানের তথ্য</NLink>
       </li>
       <li class="nav-item">

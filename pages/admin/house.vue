@@ -241,7 +241,7 @@ export default {
           // context.commit('error', error)
         });
     },
-      async deleteData(data) {
+    async deleteData(data) {
       console.log(data);
       if (window.confirm("Are you sure ?")) {
         this.$nextTick(() => {

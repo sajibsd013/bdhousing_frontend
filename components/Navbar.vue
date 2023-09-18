@@ -16,7 +16,7 @@
           src="~/static/img/logo.png"
           alt="sasthosebok.com"
           class="d-none d-md-block"
-          width="55"
+          width="150"
         />
       </NLink>
     </div>
@@ -36,9 +36,9 @@
           <NLink class="navbar-brand text-success" to="/">
             <img
               src="~/static/img/logo.png"
-              alt="sasthosebok.com"
+              alt=""
               class=""
-              width="55"
+              width="150"
             />
           </NLink>
         </div>
@@ -59,7 +59,6 @@
                 aria-expanded="false"
               >
                 <span style="font-size: 14px">
-                  
                   <small class="" style="font-weight: 500; color: #084298"
                     >{{ $auth.user.username }}
                   </small>
@@ -176,6 +175,12 @@
               </NuxtLink>
               <NuxtLink
                 class="text-muted fw-semibold pb-3 app-nav-item"
+                to="/check-tax"
+              >
+                <i class="icofont-support-faq me-2"></i>ট্যাক্স যাচাই
+              </NuxtLink>
+              <NuxtLink
+                class="text-muted fw-semibold pb-3 app-nav-item"
                 to="/tax"
               >
                 <i class="icofont-support-faq me-2"></i>কর মূল্যয়ন তথ্য
@@ -192,7 +197,6 @@
               >
                 <i class="icofont-support-faq me-2"></i>সচরাচর জিজ্ঞাসা
               </NuxtLink>
-            
             </div>
             <div
               class="bottom card-footer p-1 ps-3 mb-3 border-0 bg-white"
@@ -220,7 +224,8 @@
 
     <div class="mobile_header shadow d-block d-md-none p-2 pb-3">
       <div class="d-flex justify-content-between align-items-center">
-        <div>
+
+        <div class="">
           <p class="text-light my-0 py-0 small">Hello,</p>
 
           <template v-if="$auth.loggedIn">
