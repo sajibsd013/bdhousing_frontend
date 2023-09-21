@@ -26,7 +26,7 @@
                 />
               </div>
 
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="Division " class="small form-label">বিভাগ</label>
                 <select
                   class="form-select form-select-sm"
@@ -43,7 +43,7 @@
                 </select>
               </div>
 
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="districts" class="small form-label">জেলা</label>
                 <select
                   class="form-select form-select-sm"
@@ -60,7 +60,7 @@
                 </select>
               </div>
 
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="upazilas" class="small form-label">উপজেলা</label>
                 <select
                   class="form-select form-select-sm"
@@ -77,7 +77,7 @@
                 </select>
               </div>
 
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="union" class="small form-label">ইউনিয়ন</label>
                 <select
                   class="form-select form-select-sm"
@@ -94,7 +94,7 @@
                 </select>
               </div>
 
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="ওয়ার্ড" class="small form-label">ওয়ার্ড</label>
                 <select
                   class="form-select form-select-sm"
@@ -111,7 +111,7 @@
                 </select>
               </div>
 
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="village" class="small form-label">গ্রাম</label>
                 <input
                   class="form-control form-control-sm"
@@ -120,7 +120,7 @@
                   v-model="form_data.village"
                 />
               </div>
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="holding" class="small form-label"
                   >হোল্ডিং নম্বর</label
                 >
@@ -131,7 +131,7 @@
                   v-model="form_data.holding"
                 />
               </div>
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="hall_tax" class="small form-label"
                   >হাল ট্যাক্স</label
                 >
@@ -142,7 +142,7 @@
                   v-model="form_data.hall_tax"
                 />
               </div>
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="due_tax" class="small form-label">বকেয়া</label>
                 <input
                   class="form-control form-control-sm"
@@ -151,7 +151,7 @@
                   v-model="form_data.due_tax"
                 />
               </div>
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="total_tax" class="small form-label"
                   >মোট ট্যাক্স</label
                 >
@@ -162,18 +162,25 @@
                   v-model="form_data.total_tax"
                 />
               </div>
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="collection_year" class="small form-label"
                   >আদায় সন</label
                 >
-                <input
-                  class="form-control form-control-sm"
-                  id="collection_year"
-                  required
+                <select
+                  class="form-select form-select-sm"
+                  aria-label="Default select example"
                   v-model="form_data.collection_year"
-                />
+                  required
+                >
+                  <option value="" disabled selected>select one</option>
+                  <template v-for="number in getYears">
+                    <option :value="number" :key="number">
+                      {{ number }}
+                    </option>
+                  </template>
+                </select>
               </div>
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="date" class="small form-label">তারিখ</label>
                 <input
                   type="date"
@@ -183,7 +190,7 @@
                   v-model="form_data.date"
                 />
               </div>
-              <div class="mb-2 col-md-4">
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="mobile" class="small form-label">মোবাইল নং</label>
                 <input
                   class="form-control form-control-sm"
@@ -225,6 +232,11 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 
 export default {
   name: "House",
+  head() {
+    return {
+      title: "খানা প্রদানের তথ্য",
+    };
+  },
   components: {
     ValidationObserver,
     ValidationProvider,
@@ -304,6 +316,15 @@ export default {
       }
       return "";
     },
+    getYears() {
+      const years = [];
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      for (let i = currentYear - 2; i <= currentYear + 3; i++) {
+        years.push(i);
+      }
+      return years;
+    },
   },
   data() {
     return {
@@ -349,7 +370,7 @@ export default {
           .then((res) => {
             if (res.status === 201) {
               this.$toast.success("Success!");
-              this.$router.push("/success?q=house");
+              // this.$router.push("/success?q=house");
             }
             this.$nuxt.$loading.finish();
           })

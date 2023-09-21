@@ -15,15 +15,9 @@
             <div class="contact-info">
               <ul class="list-unstyled p-0">
                 <li>
-                  <a href="tel:+8801959970664"
-                    ><i class="icofont-ui-call me-2"></i>
-                    +8801771147384
-                  </a>
-                </li>
-                <li>
-                  <a href="mailto:info@bdhousing.com"
+                  <a href="mailto:info@bdhousingtax.com"
                     ><i class="icofont-ui-message me-2"></i>
-                    info@bdhousing.com"</a
+                    info@bdhousingtax.com</a
                   >
                 </li>
               </ul>
@@ -115,7 +109,7 @@
         <small class="p-0 text-light">
           Copyright &copy;
           <a href="#" class="">
-            <span class="fw-bold"> BDhousing.com </span>
+            <span class="fw-bold">bdhousingtax.com </span>
           </a>
           All Rights Reserved, developed by
           <a

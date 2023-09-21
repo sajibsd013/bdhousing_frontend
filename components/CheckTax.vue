@@ -1,12 +1,12 @@
 <template>
-  <div class="col-lg-8 col-md-10 mx-auto py-3">
-    <div class="p-3 card bg-white border mb-5">
+  <div class="mx-auto py-3">
+    <div class="p-3 card bg-white border">
       <h6 class="mb fw-semibold">ট্যাক্স যাচাই</h6>
       <hr />
       <ValidationObserver v-slot="{ handleSubmit }">
-        <form class="form small" @submit.prevent="handleSubmit(submitForm)">
+        <form class="form small" @submit.prevent="handleSubmit(checkTax)">
           <div class="row g-2">
-            <div class="mb-2 col-md-4">
+            <div class="mb-2 col-md-4 col-lg-3 col-6">
               <label for="Division " class="small form-label">বিভাগ</label>
               <select
                 class="form-select form-select-sm"
@@ -23,7 +23,7 @@
               </select>
             </div>
 
-            <div class="mb-2 col-md-4">
+            <div class="mb-2 col-md-4 col-lg-3 col-6">
               <label for="districts" class="small form-label">জেলা</label>
               <select
                 class="form-select form-select-sm"
@@ -40,7 +40,7 @@
               </select>
             </div>
 
-            <div class="mb-2 col-md-4">
+            <div class="mb-2 col-md-4 col-lg-3 col-6">
               <label for="upazilas" class="small form-label">উপজেলা</label>
               <select
                 class="form-select form-select-sm"
@@ -57,7 +57,7 @@
               </select>
             </div>
 
-            <div class="mb-2 col-md-4">
+            <div class="mb-2 col-md-4 col-lg-3 col-6">
               <label for="union" class="small form-label">ইউনিয়ন</label>
               <select
                 class="form-select form-select-sm"
@@ -74,7 +74,7 @@
               </select>
             </div>
 
-            <div class="mb-2 col-md-4">
+            <div class="mb-2 col-md-4 col-lg-3 col-6">
               <label for="ওয়ার্ড" class="small form-label">ওয়ার্ড</label>
               <select
                 class="form-select form-select-sm"
@@ -91,7 +91,26 @@
               </select>
             </div>
 
-            <div class="mb-2 col-md-4">
+            <div class="mb-2 col-md-4 col-lg-3 col-6">
+              <label for="collection_year" class="small form-label"
+                >আদায় সন</label
+              >
+              <select
+                class="form-select form-select-sm"
+                aria-label="Default select example"
+                v-model="form_data.collection_year"
+                required
+              >
+                <option value="" disabled selected>select one</option>
+                <template v-for="number in getYears">
+                  <option :value="number" :key="number">
+                    {{ number }}
+                  </option>
+                </template>
+              </select>
+            </div>
+
+            <div class="mb-2 col-md-4 col-lg-3 col-6">
               <label for="holding" class="small form-label"
                 >হোল্ডিং নম্বর</label
               >
@@ -113,6 +132,19 @@
           </div>
         </form>
       </ValidationObserver>
+      <hr />
+      <div class="result" v-if="result">
+        <div
+          class="alert alert-success text-center"
+          role="alert"
+          v-if="result == 200"
+        >
+          অভিনন্দন! ইতিমধ্যে কর আপনার প্রদান করা হয়েছে
+        </div>
+        <div class="alert alert-danger text-center" role="alert" v-else>
+          দুঃখিত! আপনার তথ্য পাওয়া যায় নি
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -122,11 +154,6 @@ import { ValidationObserver, ValidationProvider } from "vee-validate";
 
 export default {
   name: "checktax",
-  head() {
-    return {
-      title: "ট্যাক্স যাচাই  ",
-    };
-  },
   components: {
     ValidationObserver,
     ValidationProvider,
@@ -200,6 +227,15 @@ export default {
 
       return [];
     },
+    getYears() {
+      const years = [];
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      for (let i = currentYear - 2; i <= currentYear + 3; i++) {
+        years.push(i);
+      }
+      return years;
+    },
     getUserID() {
       if (this.$auth.user.id) {
         return this.$auth.user.id;
@@ -216,10 +252,40 @@ export default {
         union: "",
         ward: "",
         holding: "",
+        collection_year: "",
       },
+      result: null,
     };
   },
-  methods: {},
+  methods: {
+    async checkTax() {
+      this.$nextTick(() => {
+        this.$nuxt.$loading.start();
+        this.$axios
+          .post(`/check-tax/`, this.form_data, {
+            headers: {
+              // "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((res) => {
+            this.result = res.status;
+            if (res.status === 200) {
+              this.$toast.success("Success!");
+              // this.$router.push("/success?q=house");
+            }
+            this.$nuxt.$loading.finish();
+          })
+          .catch((error) => {
+            this.$nuxt.$loading.finish();
+            this.$toast.error(error.message || error.response.data.message);
+
+            console.log(error.message || error.response.data.message);
+          });
+      });
+
+      return;
+    },
+  },
   mounted() {},
 };
 </script>

@@ -1,6 +1,8 @@
 <template>
   <section class="container pb-5 pt-3 mb-5">
-    <CheckTax/>
+    <div class="col-md-8 mx-auto">
+      <CheckTax />
+    </div>
   </section>
 </template>
 
@@ -11,7 +13,7 @@ export default {
   name: "checktax",
   head() {
     return {
-      title: "ট্যাক্স যাচাই  ",
+      title: "Bangladesh Tax Digitization || ট্যাক্স যাচাই ",
     };
   },
   components: {

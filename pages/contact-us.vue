@@ -47,7 +47,7 @@
 export default {
   head() {
     return {
-      title: "Contact us",
+      title: "Bangladesh Tax Digitization || Contact us",
     };
   },
 };

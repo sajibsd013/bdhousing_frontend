@@ -30,11 +30,11 @@ body {
   font-family: var(--primary-font);
   background-color: var(--bg-white);
   -webkit-user-select: none;
-  -ms-user-select: none; 
-  user-select: none; 
+  -ms-user-select: none;
+  user-select: none;
 }
-a{
-  text-decoration: none!important;
+a {
+  text-decoration: none !important;
 }
 
 /* 11 footer */
@@ -121,8 +121,6 @@ a{
   font-weight: 600;
 }
 
-
-
 .vdp-datepicker * {
   border: none !important;
   width: 100%;
@@ -131,12 +129,10 @@ a{
   border: none !important;
 }
 
-.vdp-datepicker__calendar{
-  width: 250px!important;
-  border: 1px solid black!important;
-
+.vdp-datepicker__calendar {
+  width: 250px !important;
+  border: 1px solid black !important;
 }
-
 
 .mobile_nav .nav {
   border-radius: 25px 25px 0 0;
@@ -150,7 +146,6 @@ a{
   display: flex;
 }
 .mobile_nav .nav-link {
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -173,8 +168,7 @@ a{
   font-size: 20px;
 }
 
-
-.text-justify{
+.text-justify {
   text-align: justify;
 }
 
@@ -183,9 +177,6 @@ a{
     font-size: 80% !important;
   }
 }
-
-
-
 
 /* 11 footer */
 .service_list {
@@ -214,11 +205,9 @@ a{
   position: relative;
   -webkit-transition: all 0.3s ease-out 0s;
   transition: all 0.3s ease-out 0s;
-  font-size: 10.5px!important;
-
+  font-size: 10.5px !important;
 }
 .service_list .link-widget li a::before {
-
   content: "\00BB";
   /* font-family: "Font Awesome 5 Free"; */
   font-weight: 600;
@@ -229,7 +218,35 @@ a{
   transform: translateY(-50%);
 }
 
-.table_service,.table_service .btn {
-  font-size: 10px!important;
+.table_service,
+.table_service .btn {
+  font-size: 10px !important;
 }
 
+.table-title {
+  font-size: 14px !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .table-footer {
+    padding: 5px !important;
+  }
+  .browser-default {
+    padding: 2px !important;
+    margin: 2px !important;
+    font-size: 9px !important;
+  }
+  .datatable-info {
+    padding: 2px !important;
+    margin: 2px !important;
+    font-size: 9px !important;
+
+  }
+  .material-pagination {
+    padding: 2px !important;
+    margin: 2px !important;
+    font-size: 9px !important;
+
+  }
+
+}

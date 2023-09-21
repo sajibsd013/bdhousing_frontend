@@ -31,7 +31,7 @@ export default {
       { name: "format-detection", content: "telephone=no" },
     ],
     link: [
-      // { rel: "icon", type: "image/x-icon", href: "/img/logo.png" },
+      { rel: "icon", type: "image/x-icon", href: "/img/logo.png" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/icon?family=Material+Icons",
@@ -117,7 +117,8 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'http://localhost:8000/',
+    // baseURL: 'http://localhost:8000/',
+    baseURL: 'https://admin.bdhousingtax.com/',
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
@@ -127,6 +128,8 @@ export default {
   loading: "~/components/LoadingBar.vue",
 
   publicRuntimeConfig: {
-    apibaseURL: 'http://localhost:8000',
+    // apibaseURL: 'http://localhost:8000',
+    baseURL: 'https://admin.bdhousingtax.com/',
+
   },
 };

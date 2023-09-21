@@ -1,46 +1,43 @@
 <template>
-  <div class="accordion col-md-8 w-md-100" id="accordionExample">
-    <h6 class="text-dark fw-semibold mb-3">সচরাচর জিজ্ঞাসা</h6>
-    <template v-for="(faq, index) in faqs">
-      <div :key="index">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOne">
-            <button
-              class="accordion-button"
-              type="button"
-              data-bs-toggle="collapse"
-              :data-bs-target="`#collapse-${index}`"
-              aria-expanded="true"
-              :aria-controls="`collapse-${index}`"
+  <div class="container">
+    <div class="accordion w-md-100" id="accordionExample" v-if="faqs.length">
+      <h6 class="text-dark fw-semibold mb-3">সচরাচর জিজ্ঞাসা</h6>
+      <template v-for="(faq, index) in faqs">
+        <div :key="index">
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button
+                class="accordion-button"
+                type="button"
+                data-bs-toggle="collapse"
+                :data-bs-target="`#collapse-${index}`"
+                aria-expanded="true"
+                :aria-controls="`collapse-${index}`"
+              >
+                <small class="ques"> {{ faq.ques }}</small>
+              </button>
+            </h2>
+            <div
+              :id="`collapse-${index}`"
+              class="accordion-collapse collapse"
+              :class="index == 0 ? 'show' : 'none'"
+              aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample"
             >
-              <small> {{ faq.ques }}</small>
-            </button>
-          </h2>
-          <div
-            :id="`collapse-${index}`"
-            class="accordion-collapse collapse"
-            :class="index == 0 ? 'show' : 'none'"
-            aria-labelledby="headingOne"
-            data-bs-parent="#accordionExample"
-          >
-            <div class="accordion-body">
-              <p>{{ faq.ans }}</p>
+              <div class="accordion-body">
+                <p>{{ faq.ans }}</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </template>
+      </template>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "faq",
-  head() {
-    return {
-      title: "FAQs ",
-    };
-  },
   data() {
     return {
       faqs: [],
@@ -74,9 +71,10 @@ export default {
   box-shadow: 0px 3px 10px rgba(54, 124, 193, 0.3) !important;
 }
 @media only screen and (max-width: 600px) {
+  .ques,
   p,
   h2 {
-    font-size: 80% !important;
+    font-size: 75% !important;
   }
 }
 </style>
