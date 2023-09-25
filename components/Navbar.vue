@@ -34,12 +34,7 @@
             <i class="icofont-navigation-menu"></i>
           </a>
           <NLink class="navbar-brand text-success" to="/">
-            <img
-              src="~/static/img/logo.png"
-              alt=""
-              class=""
-              width="150"
-            />
+            <img src="~/static/img/logo.png" alt="" class="" width="150" />
           </NLink>
         </div>
 
@@ -131,11 +126,14 @@
           <span class="small fw-semibold">My Account</span>
         </NuxtLink>
 
-        <!-- 
-        <NuxtLink to="/notifications" class="nav-link text-muted">
-          <i class="icofont-notification text-muted"></i>
-          <span class="small text-muted fw-semibold">Notification</span>
-        </NuxtLink> -->
+        <NuxtLink
+          to="/admin"
+          class="nav-link text-muted"
+          v-if="this.$auth.user"
+        >
+          <i class="icofont-dashboard text-muted"></i>
+          <span class="small text-muted fw-semibold">Dashboard</span>
+        </NuxtLink>
 
         <a class="nav-link" @click="toggleNavbar">
           <i class="icofont-navigation-menu"></i>
@@ -222,9 +220,8 @@
       <img src="/img/icons/call.gif" class="rounded-circle" width="50" />
     </a>
 
-    <div class="mobile_header shadow d-block d-md-none p-2 pb-3">
+    <div class="mobile_header shadow d-block d-md-none p-2 pb-3 ">
       <div class="d-flex justify-content-between align-items-center">
-
         <div class="">
           <p class="text-light my-0 py-0 small">Hello,</p>
 
@@ -248,12 +245,6 @@
               0
               <span class="visually-hidden">unread messages</span>
             </span>
-          </NuxtLink>
-          <NuxtLink
-            to="/admin"
-            v-if="this.$auth.user && this.$auth.user.is_admin"
-          >
-            <i class="icofont-dashboard text-light h1"></i>
           </NuxtLink>
 
           <a class="nav-link mx-2 d-none" @click="toggleNavbar">
@@ -313,9 +304,12 @@ export default {
   border-left: 3px solid #084092;
 }
 
-/* .mobile_nav .nav-link {
-  color: black ;
-} */
+.mobile_nav .nav-link {
+  font-size: 12px!important;
+}
+.mobile_nav i {
+  font-size: 16spx!important;
+}
 
 .__call {
   bottom: 70px;

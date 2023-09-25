@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section class="container pb-5 pt-3 mb-5">
     <div class="col-lg-4 col-md-6 col-12 mx-auto py-3">
       <img
         class="mx-auto d-block"
@@ -10,7 +10,7 @@
       />
     </div>
 
-    <div class="col-lg-4 col-md-7 mx-auto">
+    <div class="col-lg-4 col-md-7 mx-auto ">
       <ValidationObserver v-slot="{ handleSubmit }">
         <form class="form" @submit.prevent="handleSubmit(submitForm)">
           <div class="mb-3">
