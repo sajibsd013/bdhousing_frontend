@@ -113,7 +113,7 @@
           </a>
           All Rights Reserved, developed by
           <a
-            href="https://www.linkedin.com/in/sajibsd013/"
+            href="https://sajibsd013.github.io/"
             target="_blank"
             class=""
             >Sajib Sutradhar</a

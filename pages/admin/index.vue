@@ -6,7 +6,8 @@
         class="col-md-3 col-sm-6 col-6"
         :key="data.icon"
       >
-        <div
+        <NuxtLink
+          :to="data.url"
           class="card h-100 _card shadow border-0 p-2 p-sm-4"
           :style="`background-color: ${data.bg}`"
         >
@@ -24,7 +25,7 @@
               ></i>
             </div>
           </div>
-        </div>
+        </NuxtLink>
       </div>
     </div>
     <div class="row">
@@ -52,21 +53,25 @@ export default {
           icon: "icofont-users",
           key: "ব্যবহারকারী",
           number: this.users.length,
-
           bg: "rgb(0 207 232)",
+          url : "/admin/users"
         },
         {
           icon: "icofont-chart-histogram-alt",
           key: "কর মূল্যয়ন তথ্য",
           number: this.tax.length,
-
           bg: "rgb(40 199 111)",
+          url : "/admin/tax"
+
         },
         {
           icon: "icofont-ui-home",
           key: "খানা প্রদানের তথ্য",
           number: this.house.length,
           bg: "rgb(255 159 67)",
+          url : "/admin/house"
+
+
         },
 
         {
@@ -74,6 +79,7 @@ export default {
           key: "সচরাচর জিজ্ঞাসা",
           number: this.faqs.length,
           bg: "rgb(234 84 85)",
+          url : "/admin/faq"
         },
       ];
       return data;

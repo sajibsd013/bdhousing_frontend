@@ -14,7 +14,7 @@
                 v-model="form_data.division"
                 required
               >
-                <option value="" disabled selected>select one</option>
+                <option value="" disabled selected>নির্বাচন করুন</option>
                 <template v-for="data in getDivisions">
                   <option :value="data.bn_name" :key="data.id">
                     {{ data.bn_name }}
@@ -31,7 +31,7 @@
                 v-model="form_data.district"
                 required
               >
-                <option value="" disabled selected>select one</option>
+                <option value="" disabled selected>নির্বাচন করুন</option>
                 <template v-for="data in getDistricts">
                   <option :value="data.bn_name" :key="data.id">
                     {{ data.bn_name }}
@@ -48,7 +48,7 @@
                 v-model="form_data.upazila"
                 required
               >
-                <option value="" disabled selected>select one</option>
+                <option value="" disabled selected>নির্বাচন করুন</option>
                 <template v-for="data in getUpazilas">
                   <option :value="data.bn_name" :key="data.id">
                     {{ data.bn_name }}
@@ -65,7 +65,7 @@
                 v-model="form_data.union"
                 required
               >
-                <option value="" disabled selected>select one</option>
+                <option value="" disabled selected>নির্বাচন করুন</option>
                 <template v-for="data in getUnions">
                   <option :value="data.bn_name" :key="data.id">
                     {{ data.bn_name }}
@@ -82,10 +82,10 @@
                 v-model="form_data.ward"
                 required
               >
-                <option value="" disabled selected>select one</option>
+                <option value="" disabled selected>নির্বাচন করুন</option>
                 <template v-for="number in 9">
-                  <option :value="number" :key="number">
-                    {{ number }}
+                  <option :value="convertToBengali(number)" :key="number">
+                    {{ convertToBengali(number) }}
                   </option>
                 </template>
               </select>
@@ -101,10 +101,10 @@
                 v-model="form_data.collection_year"
                 required
               >
-                <option value="" disabled selected>select one</option>
+                <option value="" disabled selected>নির্বাচন করুন</option>
                 <template v-for="number in getYears">
-                  <option :value="number" :key="number">
-                    {{ number }}
+                  <option :value="convertToBengali(number)" :key="number">
+                    {{ convertToBengali(number) }}
                   </option>
                 </template>
               </select>
@@ -231,8 +231,8 @@ export default {
       const years = [];
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
-      for (let i = currentYear - 2; i <= currentYear + 3; i++) {
-        years.push(i);
+      for (let i = currentYear - 4; i <= currentYear + 7; i++) {
+        years.push(`${i}-${i+1}`);
       }
       return years;
     },
@@ -258,6 +258,16 @@ export default {
     };
   },
   methods: {
+    convertToBengali(number){
+      const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      const bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      // Convert each digit of the number
+      const bengaliDigits = number
+        .toString()
+        .split('')
+        .map(digit => (englishNumbers.includes(digit) ? bengaliNumbers[englishNumbers.indexOf(digit)] : digit));
+        return bengaliDigits.join('');
+    },
     async checkTax() {
       this.$nextTick(() => {
         this.$nuxt.$loading.start();
