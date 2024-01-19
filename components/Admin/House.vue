@@ -82,8 +82,8 @@
           >
             <option value="" selected>All</option>
             <template v-for="number in 9">
-              <option :value="number" :key="number">
-                {{ number }}
+              <option :value="convertToBengali(number)" :key="number">
+                {{ convertToBengali(number) }}
               </option>
             </template>
           </select>
@@ -224,6 +224,16 @@ export default {
     },
   },
   methods: {
+    convertToBengali(number){
+      const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      const bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      // Convert each digit of the number
+      const bengaliDigits = number
+        .toString()
+        .split('')
+        .map(digit => (englishNumbers.includes(digit) ? bengaliNumbers[englishNumbers.indexOf(digit)] : digit));
+        return bengaliDigits.join('');
+    },
     async getData() {
       await this.$axios
         .get(`house`)
