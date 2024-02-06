@@ -189,6 +189,8 @@ export default {
     },
     getSortedList() {
       let temp_data = this.data;
+
+
       if (!this.$auth.user.is_admin) {
         temp_data = temp_data.filter(({ user }) => {
           return this.getUserID == user;
@@ -218,12 +220,33 @@ export default {
         temp_data = temp_data.filter(({ ward }) => {
           return this.form_data.ward == ward;
         });
+        temp_data.sort((a, b) => {
+          // Convert Bangla numbers to regular numbers for comparison
+          const banglaToNumeric = (str) => parseInt(str.replace(/[০-৯]/g, (match) => match.charCodeAt(0) - '০'.charCodeAt(0)));
+
+          const numericA = banglaToNumeric(a.holding);
+          const numericB = banglaToNumeric(b.holding);
+
+          return numericA - numericB;
+      });
       }
+
+
 
       return temp_data;
     },
   },
   methods: {
+    convertToEngish(number){
+      const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      const bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      // Convert each digit of the number
+      const englishDigits = number
+        .toString()
+        .split('')
+        .map(digit => (bengaliNumbers.includes(digit) ? englishNumbers[bengaliNumbers.indexOf(digit)] : digit));
+        return englishDigits.join('');
+    },
     convertToBengali(number){
       const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
       const bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];

@@ -122,10 +122,10 @@ export default {
       data: [],
       columns: [
         { label: "বাড়ির/ দোকান মালিকের নাম", field: "name" },
+        { label: "হোল্ডিং নম্বর", field: "union_code" },
         { label: "পিতার নাম", field: "father" },
         { label: "পরিবারের সদস্য (পুরুষ)", field: "total_male" },
         { label: "পরিবারের সদস্য (মহিলা)", field: "total_female" },
-
         { label: "বিভাগ", field: "division" },
         { label: "জেলা", field: "district" },
         { label: "উপজেলা", field: "upazila" },
@@ -133,7 +133,6 @@ export default {
         { label: "ওয়ার্ড", field: "ward" },
         { label: "গ্রাম", field: "village" },
 
-        { label: "ইউনিয়ন কোড", field: "union_code" },
         { label: "মোবাইল নং", field: "mobile" },
 
         { label: "আয়ের উৎস", field: "income_source" },
@@ -223,6 +222,16 @@ export default {
     },
   },
   methods: {
+    convertToEngish(number){
+      const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      const bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      // Convert each digit of the number
+      const englishDigits = number
+        .toString()
+        .split('')
+        .map(digit => (bengaliNumbers.includes(digit) ? englishNumbers[bengaliNumbers.indexOf(digit)] : digit));
+        return englishDigits.join('');
+    },
     convertToBengali(number){
       const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
       const bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];

@@ -148,7 +148,7 @@
               </div>
               <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="union_code" class="small form-label"
-                  >ইউনিয়ন কোড</label
+                  >হোল্ডিং নম্বর</label
                 >
                 <input
                   class="form-control form-control-sm"
