@@ -123,7 +123,7 @@ export default {
       columns: [
         { label: "বাড়ির/ দোকান মালিকের নাম", field: "name" },
         { label: "হোল্ডিং নম্বর", field: "union_code" },
-        { label: "পিতার নাম", field: "father" },
+        { label: "পিতা/স্বামী", field: "father" },
         { label: "পরিবারের সদস্য (পুরুষ)", field: "total_male" },
         { label: "পরিবারের সদস্য (মহিলা)", field: "total_female" },
         { label: "বিভাগ", field: "division" },

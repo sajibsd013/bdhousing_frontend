@@ -125,7 +125,7 @@ export default {
       data: [],
       columns: [
         { label: "নাম", field: "name" },
-        { label: "পিতার নাম", field: "father" },
+        { label: "পিতা/স্বামী", field: "father" },
         { label: "হোল্ডিং নম্বর", field: "holding" },
         { label: "বিভাগ", field: "division" },
         { label: "জেলা", field: "district" },

@@ -29,7 +29,27 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-8 col-md-7"></div>
+      <div class="col-lg-8 col-md-7">
+        <div class="card h-100 _card shadow border-0 p-2 p-sm-4">
+          <div class="row ">
+            <div
+              class="col-9 text-start d-flex flex-column justify-content-center"
+            >
+              <h6>Current Balance : {{ sms.balance }} BDT or {{ (parseFloat(sms.balance)/parseFloat(sms.rate)) }} SMS</h6>
+              <h6>SMS Rate : {{ sms.rate }} BDT/SMS</h6>
+              <h6>Expire Date : {{ sms.expiry }}</h6>
+              <a href="https://sms.greenweb.com.bd/ordernow.php" target="_blank">Buy SMS</a>
+            </div>
+            <div class="col-3 d-flex justify-content-center align-items-center">
+              <i
+                class="text-light rounded-circle p-2 p-sm-3 _card_icon icofont-taka"
+              ></i>
+             
+            </div>
+          </div>
+
+        </div>
+      </div>
       <div class="col-lg-4 col-md-5 shadow bg-white rounded p-3">
         <AdminNotifications />
       </div>
@@ -54,24 +74,21 @@ export default {
           key: "ব্যবহারকারী",
           number: this.users.length,
           bg: "rgb(0 207 232)",
-          url : "/admin/users"
+          url: "/admin/users",
         },
         {
           icon: "icofont-chart-histogram-alt",
           key: "কর মূল্যয়ন তথ্য",
           number: this.tax.length,
           bg: "rgb(40 199 111)",
-          url : "/admin/tax"
-
+          url: "/admin/tax",
         },
         {
           icon: "icofont-ui-home",
           key: "খানা প্রদানের তথ্য",
           number: this.house.length,
           bg: "rgb(255 159 67)",
-          url : "/admin/house"
-
-
+          url: "/admin/house",
         },
 
         {
@@ -79,13 +96,28 @@ export default {
           key: "সচরাচর জিজ্ঞাসা",
           number: this.faqs.length,
           bg: "rgb(234 84 85)",
-          url : "/admin/faq"
+          url: "/admin/faq",
         },
       ];
       return data;
     },
   },
   methods: {
+    async getBalance() {
+      await this.$axios
+        .get(`balance`)
+        .then((res) => {
+          // if (res.status === 200) {
+          // }
+          this.sms = res.data.data;
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+          // console.log(error.response.data.message || error.message);
+          // context.commit('error', error)
+        });
+    },
     async getFaqs() {
       await this.$axios
         .get(`faqs`)
@@ -128,7 +160,7 @@ export default {
           // context.commit('error', error)
         });
     },
-        async getUsers() {
+    async getUsers() {
       await this.$axios
         .get(`/auth/users/`)
         .then((res) => {
@@ -149,6 +181,11 @@ export default {
       house: [],
       tax: [],
       users: [],
+      sms: {
+        balance: 0,
+        expiry: 0,
+        rate: 0,
+      },
     };
   },
   mounted() {
@@ -156,6 +193,7 @@ export default {
     this.getHouse();
     this.getTax();
     this.getUsers();
+    this.getBalance();
   },
 };
 </script>

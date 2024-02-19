@@ -18,7 +18,7 @@
                 />
               </div>
               <div class="mb-2 col-md-6">
-                <label for="father" class="small form-label">পিতার নাম</label>
+                <label for="father" class="small form-label">পিতা/স্বামী</label>
                 <input
                   class="form-control form-control-sm"
                   id="father"
