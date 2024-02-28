@@ -199,6 +199,66 @@ s
                 </select>
               </div>
               <div class="mb-2 col-md-4 col-lg-3 col-6">
+                <label for="total_male" class="small form-label"
+                  >পরিবারের সদস্য (পুরুষ)</label
+                >
+                <input
+                   
+                  class="form-control form-control-sm"
+                  id="total_male"
+                  required
+                  v-model="form_data.total_male"
+                />
+              </div>
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
+                <label for="total_female" class="small form-label"
+                  >পরিবারের সদস্য (মহিলা)</label
+                >
+                <input
+                   
+                  class="form-control form-control-sm"
+                  id="total_female"
+                  required
+                  v-model="form_data.total_female"
+                />
+              </div>
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
+                <label for="income_source " class="small form-label"
+                  >আয়ের উৎস
+                </label>
+                <select
+                  class="form-select form-select-sm"
+                  aria-label="Default select example"
+                  v-model="form_data.income_source"
+                  required
+                >
+                  <option value="" disabled selected>নির্বাচন করুন</option>
+                  <template v-for="data in work_options">
+                    <option :value="data" :key="data">
+                      {{ data }}
+                    </option>
+                  </template>
+                </select>
+              </div>
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
+                <label for="building_nature " class="small form-label"
+                  >গৃহ ভবনের প্রকৃতি</label
+                >
+                <select
+                  class="form-select form-select-sm"
+                  aria-label="Default select example"
+                  v-model="form_data.building_nature"
+                  required
+                >
+                  <option value="" disabled selected>নির্বাচন করুন</option>
+                  <template v-for="data in building_nature_options">
+                    <option :value="data" :key="data">
+                      {{ data }}
+                    </option>
+                  </template>
+                </select>
+              </div>
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="date" class="small form-label">তারিখ</label>
                 <input
                   type="date"
@@ -339,7 +399,7 @@ export default {
       const years = [];
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
-      for (let i = currentYear - 4; i <= currentYear + 7; i++) {
+      for (let i = currentYear - 10; i <= currentYear + 2; i++) {
         years.push(`${i}-${i+1}`);
       }
       return years;
@@ -351,6 +411,26 @@ export default {
   },
   data() {
     return {
+      work_options: [
+        "কৃষি",
+        "ব্যবসা",
+        "প্রবাসি",
+        "দিন মজুর",
+        "চাকরিজীবী",
+        "অন্যান্য",
+      ],
+      building_nature_options: [
+        "পাকা",
+        "আধা পাকা",
+        "টিন শেড",
+        "কাচাঁ",
+        "সরকারী ভবণ",
+        "1 তলা বিশিষ্ট",
+        "2 তলা বিশিষ্ট",
+        "3 তলা বিশিষ্ট",
+        "4 তলা বিশিষ্ট",
+        "5 তলা বিশিষ্ট",
+      ],
       form_data: {
         name: "",
         father: "",
@@ -363,12 +443,18 @@ export default {
         hall_tax: "",
         due_tax: "",
         total_tax: "",
-        collection_year: "",
+        // collection_year: "২০২৩-২০২৪",
+        collection_year: this.convertToBengali(`${new Date().getFullYear()-1}-${new Date().getFullYear()}`),
         date: "",
         mobile: "",
         village: "",
         user: "",
-        remaining_due_tax: "",
+        remaining_due_tax: "০",
+        total_male: "০",
+        total_female: "০",
+        income_source: "কৃষি",
+        building_nature: "আধা পাকা",
+        msg: "",
       },
     };
   },
@@ -403,6 +489,7 @@ export default {
     },
     async addData() {
       this.form_data.user = this.getUserID;
+      this.form_data.msg = `হোল্ডিং ${this.form_data.holding}, ওয়ার্ড নং ${this.form_data.ward},${this.form_data.name}, আপনার ${this.form_data.collection_year} অর্থ বছর পর্যন্ত মোট ${this.form_data.total_tax} টাকা কর পরিশোধ করা হয়েছে,ধন্যবাদ।`
       this.$nextTick(() => {
         this.$nuxt.$loading.start();
         this.$axios
@@ -414,6 +501,14 @@ export default {
           .then((res) => {
             if (res.status === 201) {
               this.$toast.success("Success!");
+              this.form_data.name = "";
+              this.form_data.father = "";
+              this.form_data.holding = "";
+              this.form_data.hall_tax = "";
+              this.form_data.due_tax = "";
+              this.form_data.total_tax = "";
+              this.form_data.remaining_due_tax = "";
+              this.form_data.mobile = "";
               // this.$router.push("/success?q=house");
             }
             this.$nuxt.$loading.finish();
@@ -488,13 +583,21 @@ export default {
   },
   watch:{
     "form_data.due_tax"(){
+      this.form_data.due_tax = this.convertToBengali(this.form_data.due_tax);
+
       this.form_data.total_tax = this.convertToBengali(Number(this.convertToEngish(this.form_data.due_tax))+Number(this.convertToEngish(this.form_data.hall_tax)))
     },
     "form_data.hall_tax"(){
+      this.form_data.hall_tax = this.convertToBengali(this.form_data.hall_tax);
       this.form_data.total_tax = this.convertToBengali(Number(this.convertToEngish(this.form_data.due_tax))+Number(this.convertToEngish(this.form_data.hall_tax)))
 
-
-    }
+    },
+    "form_data.holding"(){
+      this.form_data.holding = this.convertToBengali(this.form_data.holding)
+    },
+    "form_data.remaining_due_tax"(){
+      this.form_data.remaining_due_tax = this.convertToBengali(this.form_data.remaining_due_tax)
+    },
   }
 };
 </script>

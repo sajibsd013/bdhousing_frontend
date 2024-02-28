@@ -10,9 +10,9 @@
       <li class="nav-item">
         <NLink class="nav-link" to="/house">খানা প্রদানের তথ্য</NLink>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <NLink class="nav-link" to="/tax">কর মূল্যয়ন তথ্য</NLink>
-      </li>
+      </li> -->
       <li class="nav-item">
         <NLink class="nav-link" to="/faq">সচরাচর জিজ্ঞাসা</NLink>
       </li>

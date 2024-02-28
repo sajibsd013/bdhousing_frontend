@@ -2,16 +2,14 @@
   <section class="container pb-5 pt-3 mb-5">
     <div class="col-lg-8 col-md-10 mx-auto py-3">
       <div class="p-3 card bg-white border mb-5" v-if="$auth.loggedIn">
-        <h6 class="fw-semibold">কর মূল্যয়ন খানা প্রদানের তথ্য</h6>
-        <!-- {{form_data}} -->
+        <h6 class="mb fw-semibold">খানা প্রদানের ট্যাক্স আদায়কৃত তথ্য</h6>
         <hr />
+        <!-- {{ form_data }} -->
         <ValidationObserver v-slot="{ handleSubmit }">
           <form class="form small" @submit.prevent="handleSubmit(submitForm)">
             <div class="row g-2">
               <div class="mb-2 col-md-6">
-                <label for="name" class="small form-label"
-                  >বাড়ির/ দোকান মালিকের নাম</label
-                >
+                <label for="name" class="small form-label">নাম</label>
                 <input
                   class="form-control form-control-sm"
                   id="name"
@@ -20,7 +18,7 @@
                 />
               </div>
               <div class="mb-2 col-md-6">
-                <label for="father" class="small form-label">পিতা/স্বামী </label>
+                <label for="father" class="small form-label">পিতা/স্বামী</label>
                 <input
                   class="form-control form-control-sm"
                   id="father"
@@ -29,30 +27,6 @@
                 />
               </div>
 
-              <div class="mb-2 col-md-4 col-lg-3 col-6">
-                <label for="total_male" class="small form-label"
-                  >পরিবারের সদস্য (পুরুষ)</label
-                >
-                <input
-                   
-                  class="form-control form-control-sm"
-                  id="total_male"
-                  required
-                  v-model="form_data.total_male"
-                />
-              </div>
-              <div class="mb-2 col-md-4 col-lg-3 col-6">
-                <label for="total_female" class="small form-label"
-                  >পরিবারের সদস্য (মহিলা)</label
-                >
-                <input
-                   
-                  class="form-control form-control-sm"
-                  id="total_female"
-                  required
-                  v-model="form_data.total_female"
-                />
-              </div>
               <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="Division " class="small form-label">বিভাগ</label>
                 <select
@@ -134,9 +108,11 @@
                     <option :value="convertToBengali(number)" :key="number">
                       {{ convertToBengali(number) }}
                     </option>
+s
                   </template>
                 </select>
               </div>
+
               <div class="mb-2 col-md-4 col-lg-3 col-6">
                 <label for="village" class="small form-label">গ্রাম</label>
                 <input
@@ -147,16 +123,61 @@
                 />
               </div>
               <div class="mb-2 col-md-4 col-lg-3 col-6">
-                <label for="union_code" class="small form-label"
+                <label for="holding" class="small form-label"
                   >হোল্ডিং নম্বর</label
+                >
+                <input
+                  class="form-control form-control-sm"
+                  id="holding"
+                  required
+                  v-model="form_data.holding"
+                />
+              </div>
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
+                <label for="hall_tax" class="small form-label"
+                  >হাল ট্যাক্স</label
                 >
                 <input
                   class="form-control form-control-sm"
                    
 
-                  id="union_code"
+                  id="hall_tax"
                   required
-                  v-model="form_data.union_code"
+                  v-model="form_data.hall_tax"
+                />
+              </div>
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
+                <label for="due_tax" class="small form-label">বকেয়া</label>
+                <input
+                  class="form-control form-control-sm"
+                   
+
+                  id="due_tax"
+                  required
+                  v-model="form_data.due_tax"
+                />
+              </div>
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
+                <label for="total_tax" class="small form-label"
+                  >মোট ট্যাক্স</label
+                >
+                <input
+                  class="form-control form-control-sm"
+                   
+
+                  id="total_tax"
+                  required
+                  v-model="form_data.total_tax"
+                />
+              </div>
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
+                <label for="due_tax" class="small form-label">অবশিষ্ট বকেয়া</label>
+                <input
+                   
+                  class="form-control form-control-sm"
+                  id="due_tax"
+                  required
+                  v-model="form_data.remaining_due_tax"
                 />
               </div>
               <div class="mb-2 col-md-4 col-lg-3 col-6">
@@ -178,12 +199,27 @@
                 </select>
               </div>
               <div class="mb-2 col-md-4 col-lg-3 col-6">
-                <label for="mobile" class="small form-label">মোবাইল নং</label>
+                <label for="total_male" class="small form-label"
+                  >পরিবারের সদস্য (পুরুষ)</label
+                >
                 <input
+                   
                   class="form-control form-control-sm"
-                  id="mobile"
+                  id="total_male"
                   required
-                  v-model="form_data.mobile"
+                  v-model="form_data.total_male"
+                />
+              </div>
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
+                <label for="total_female" class="small form-label"
+                  >পরিবারের সদস্য (মহিলা)</label
+                >
+                <input
+                   
+                  class="form-control form-control-sm"
+                  id="total_female"
+                  required
+                  v-model="form_data.total_female"
                 />
               </div>
               <div class="mb-2 col-md-4 col-lg-3 col-6">
@@ -222,21 +258,28 @@
                   </template>
                 </select>
               </div>
-
               <div class="mb-2 col-md-4 col-lg-3 col-6">
-                <label for="hall_tax" class="small form-label"
-                  >হাল ট্যাক্স</label
-                >
+                <label for="date" class="small form-label">তারিখ</label>
+                <input
+                  type="date"
+                  class="form-control form-control-sm"
+                  id="date"
+                  required
+                  lang="bn"
+                  v-model="form_data.date"
+                />
+              </div>
+              <div class="mb-2 col-md-4 col-lg-3 col-6">
+                <label for="mobile" class="small form-label">মোবাইল নং</label>
                 <input
                   class="form-control form-control-sm"
-                  id="hall_tax"
-                   
-
+                  id="mobile"
                   required
-                  v-model="form_data.hall_tax"
+                  v-model="form_data.mobile"
                 />
               </div>
             </div>
+
             <div class="my-3">
               <div class="d-flex align-items-center mb-2">
                 <input type="checkbox" id="checkbox" name="checkbox" required />
@@ -252,11 +295,13 @@
           </form>
         </ValidationObserver>
       </div>
+
       <div v-else>
         <div class="alert alert-danger" role="alert">
           You have no permission!
         </div>
       </div>
+      <!-- {{ form_data }} -->
     </div>
   </section>
 </template>
@@ -265,58 +310,15 @@
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 
 export default {
-  name: "Tax",
+  name: "House",
+  head() {
+    return {
+      title: "খানা প্রদানের তথ্য",
+    };
+  },
   components: {
     ValidationObserver,
     ValidationProvider,
-  },
-  head() {
-    return {
-      title: "কর মূল্যয়ন তথ্য",
-    };
-  },
-  data() {
-    return {
-      work_options: [
-        "কৃষি",
-        "ব্যবসা",
-        "প্রবাসি",
-        "দিন মজুর",
-        "চাকরিজীবী",
-        "অন্যান্য",
-      ],
-      building_nature_options: [
-        "পাকা",
-        "আধা পাকা ",
-        "টিন শেড",
-        "কাচাঁ",
-        "সরকারী ভবণ",
-        "1 তলা বিশিষ্ট",
-        "2 তলা বিশিষ্ট",
-        "3 তলা বিশিষ্ট",
-        "4 তলা বিশিষ্ট",
-        "5 তলা বিশিষ্ট",
-      ],
-      form_data: {
-        name: "",
-        father: "",
-        total_male: "",
-        total_female: "",
-        income_source: "",
-        building_nature: "",
-        division: "",
-        district: "",
-        upazila: "",
-        union: "",
-        union_code: "",
-        ward: "",
-        village: "",
-        hall_tax: "",
-        mobile: "",
-        collection_year: "",
-        user: "",
-      },
-    };
   },
   computed: {
     getDivisions() {
@@ -397,12 +399,66 @@ export default {
       const years = [];
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
-      for (let i = currentYear - 4; i <= currentYear + 7; i++) {
+      for (let i = currentYear - 10; i <= currentYear + 2; i++) {
         years.push(`${i}-${i+1}`);
       }
       return years;
     },
+    totalTex(){
+      return this.hall_tax+this.due_tax
+    }
+
   },
+  data() {
+    return {
+      work_options: [
+        "কৃষি",
+        "ব্যবসা",
+        "প্রবাসি",
+        "দিন মজুর",
+        "চাকরিজীবী",
+        "অন্যান্য",
+      ],
+      building_nature_options: [
+        "পাকা",
+        "আধা পাকা",
+        "টিন শেড",
+        "কাচাঁ",
+        "সরকারী ভবণ",
+        "1 তলা বিশিষ্ট",
+        "2 তলা বিশিষ্ট",
+        "3 তলা বিশিষ্ট",
+        "4 তলা বিশিষ্ট",
+        "5 তলা বিশিষ্ট",
+      ],
+      form_data: {
+        name: "",
+        father: "",
+        division: "",
+        district: "",
+        upazila: "",
+        union: "",
+        ward: "",
+        holding: "",
+        hall_tax: "",
+        due_tax: "",
+        total_tax: "",
+        // collection_year: "২০২৩-২০২৪",
+        collection_year: this.convertToBengali(`${new Date().getFullYear()-1}-${new Date().getFullYear()}`),
+        date: "",
+        mobile: "",
+        village: "",
+        user: "",
+        remaining_due_tax: "০",
+        total_male: "০",
+        total_female: "০",
+        income_source: "কৃষি",
+        building_nature: "আধা পাকা",
+        msg: "",
+      },
+    };
+  },
+
   methods: {
     convertToBengali(number){
       const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
@@ -414,6 +470,16 @@ export default {
         .map(digit => (englishNumbers.includes(digit) ? bengaliNumbers[englishNumbers.indexOf(digit)] : digit));
         return bengaliDigits.join('');
     },
+    convertToEngish(number){
+      const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+      const bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+      // Convert each digit of the number
+      const englishDigits = number
+        .toString()
+        .split('')
+        .map(digit => (bengaliNumbers.includes(digit) ? englishNumbers[bengaliNumbers.indexOf(digit)] : digit));
+        return englishDigits.join('');
+    },
     submitForm() {
       if (this.$route.query["id"]) {
         this.updateData();
@@ -423,18 +489,27 @@ export default {
     },
     async addData() {
       this.form_data.user = this.getUserID;
+      this.form_data.msg = `হোল্ডিং ${this.form_data.holding}, ওয়ার্ড নং ${this.form_data.ward},${this.form_data.name}, আপনার ${this.form_data.collection_year} অর্থ বছর পর্যন্ত মোট ${this.form_data.total_tax} টাকা কর পরিশোধ করা হয়েছে,ধন্যবাদ।`
       this.$nextTick(() => {
         this.$nuxt.$loading.start();
         this.$axios
-          .post(`/tax/`, this.form_data, {
+          .post(`/house/`, this.form_data, {
             headers: {
               // "Content-Type": "multipart/form-data",
             },
           })
           .then((res) => {
             if (res.status === 201) {
-              this.$toast.success("Success! ");
-              // this.$router.push("/success?q=tax");
+              this.$toast.success("Success!");
+              this.form_data.name = "";
+              this.form_data.father = "";
+              this.form_data.holding = "";
+              this.form_data.hall_tax = "";
+              this.form_data.due_tax = "";
+              this.form_data.total_tax = "";
+              this.form_data.remaining_due_tax = "";
+              this.form_data.mobile = "";
+              // this.$router.push("/success?q=house");
             }
             this.$nuxt.$loading.finish();
           })
@@ -452,7 +527,7 @@ export default {
       this.$nextTick(() => {
         this.$nuxt.$loading.start();
         this.$axios
-          .put(`/tax/${this.$route.query.id}/`, this.form_data, {
+          .put(`/house/${this.$route.query.id}/`, this.form_data, {
             headers: {
               // "Content-Type": "multipart/form-data",
             },
@@ -476,7 +551,7 @@ export default {
       this.$nextTick(() => {
         this.$nuxt.$loading.start();
         this.$axios
-          .get(`/tax/${this.$route.query.id}`, {
+          .get(`/house/${this.$route.query.id}`, {
             headers: {
               // "Content-Type": "multipart/form-data",
             },
@@ -506,6 +581,24 @@ export default {
     //   this.$router.push("/");
     // }
   },
+  watch:{
+    "form_data.due_tax"(){
+      this.form_data.due_tax = this.convertToBengali(this.form_data.due_tax);
+
+      this.form_data.total_tax = this.convertToBengali(Number(this.convertToEngish(this.form_data.due_tax))+Number(this.convertToEngish(this.form_data.hall_tax)))
+    },
+    "form_data.hall_tax"(){
+      this.form_data.hall_tax = this.convertToBengali(this.form_data.hall_tax);
+      this.form_data.total_tax = this.convertToBengali(Number(this.convertToEngish(this.form_data.due_tax))+Number(this.convertToEngish(this.form_data.hall_tax)))
+
+    },
+    "form_data.holding"(){
+      this.form_data.holding = this.convertToBengali(this.form_data.holding)
+    },
+    "form_data.remaining_due_tax"(){
+      this.form_data.remaining_due_tax = this.convertToBengali(this.form_data.remaining_due_tax)
+    },
+  }
 };
 </script>
 

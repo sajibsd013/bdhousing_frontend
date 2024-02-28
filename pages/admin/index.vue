@@ -30,12 +30,12 @@
     </div>
     <div class="row">
       <div class="col-lg-8 col-md-7">
-        <div class="card h-100 _card shadow border-0 p-2 p-sm-4">
+        <div class="card h-100 _card shadow border-0 p-2 p-sm-4" v-if="this.$auth.user.is_admin">
           <div class="row ">
             <div
               class="col-9 text-start d-flex flex-column justify-content-center"
             >
-              <h6>Current Balance : {{ sms.balance }} BDT or {{ (parseFloat(sms.balance)/parseFloat(sms.rate)) }} SMS</h6>
+              <h6>Current Balance : {{ sms.balance }} BDT or {{ Math.round(parseFloat(sms.balance)/parseFloat(sms.rate)) }} SMS</h6>
               <h6>SMS Rate : {{ sms.rate }} BDT/SMS</h6>
               <h6>Expire Date : {{ sms.expiry }}</h6>
               <a href="https://sms.greenweb.com.bd/ordernow.php" target="_blank">Buy SMS</a>
@@ -79,14 +79,14 @@ export default {
         {
           icon: "icofont-chart-histogram-alt",
           key: "কর মূল্যয়ন তথ্য",
-          number: this.tax.length,
+          number: this.getDataList.length,
           bg: "rgb(40 199 111)",
           url: "/admin/tax",
         },
         {
           icon: "icofont-ui-home",
           key: "খানা প্রদানের তথ্য",
-          number: this.house.length,
+          number: this.getDataList.length,
           bg: "rgb(255 159 67)",
           url: "/admin/house",
         },
@@ -100,6 +100,9 @@ export default {
         },
       ];
       return data;
+    },
+    getDataList() {
+      return [...this.$store.getters["house/getData"]];
     },
   },
   methods: {
@@ -132,34 +135,34 @@ export default {
           // context.commit('error', error)
         });
     },
-    async getHouse() {
-      await this.$axios
-        .get(`house`)
-        .then((res) => {
-          if (res.status === 200) {
-            this.house = res.data;
-          }
-        })
-        .catch((error) => {
-          console.log(error.response);
-          console.log(error.response.data.message || error.message);
-          // context.commit('error', error)
-        });
-    },
-    async getTax() {
-      await this.$axios
-        .get(`tax`)
-        .then((res) => {
-          if (res.status === 200) {
-            this.tax = res.data;
-          }
-        })
-        .catch((error) => {
-          console.log(error.response);
-          console.log(error.response.data.message || error.message);
-          // context.commit('error', error)
-        });
-    },
+    // async getHouse() {
+    //   await this.$axios
+    //     .get(`house`)
+    //     .then((res) => {
+    //       if (res.status === 200) {
+    //         this.house = res.data;
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.log(error.response);
+    //       console.log(error.response.data.message || error.message);
+    //       // context.commit('error', error)
+    //     });
+    // },
+    // async getTax() {
+    //   await this.$axios
+    //     .get(`tax`)
+    //     .then((res) => {
+    //       if (res.status === 200) {
+    //         this.tax = res.data;
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.log(error.response);
+    //       console.log(error.response.data.message || error.message);
+    //       // context.commit('error', error)
+    //     });
+    // },
     async getUsers() {
       await this.$axios
         .get(`/auth/users/`)
@@ -190,8 +193,8 @@ export default {
   },
   mounted() {
     this.getFaqs();
-    this.getHouse();
-    this.getTax();
+    // this.getHouse();
+    // this.getTax();
     this.getUsers();
     this.getBalance();
   },

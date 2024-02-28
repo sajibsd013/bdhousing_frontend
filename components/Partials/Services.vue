@@ -22,7 +22,7 @@
         </NuxtLink>
       </div>
       <div class="col-lg-3 col-md-6 col-6">
-        <NuxtLink to="/tax">
+        <NuxtLink to="/">
           <img
             alt="কর মূল্যয়ন তথ্য"
             src="/img/services/taxes.png"

@@ -1,6 +1,7 @@
 <template>
   <div class="card p-2 my-3 border-0">
-    <div >
+    <div>
+      <!-- {{ getDataList }} -->
       <div class="row">
         <div class="mb-2 col-md-2 col-6">
           <label for="Division " class="small form-label">বিভাগ</label>
@@ -88,6 +89,32 @@
             </template>
           </select>
         </div>
+
+        <div class="mb-2 col-md-2 col-6">
+          <label for="collection_year" class="small form-label">আদায় সন</label>
+          <select
+            class="form-select form-select-sm"
+            aria-label="Default select example"
+            v-model="form_data.collection_year"
+            required
+          >
+            <option value="" selected>All</option>
+            <template v-for="number in getYears">
+              <option :value="convertToBengali(number)" :key="number">
+                {{ convertToBengali(number) }}
+              </option>
+            </template>
+          </select>
+        </div>
+        <div class="mb-2 col-md-2 col-6">
+          <label for="holding" class="small form-label">হোল্ডিং নম্বর</label>
+          <input
+            class="form-control form-control-sm"
+            id="holding"
+            required
+            v-model="form_data.holding"
+          />
+        </div>
       </div>
       <DataTable
         title="খানা প্রদানের ট্যাক্স আদায়কৃত তথ্য"
@@ -114,7 +141,6 @@
         </template>
       </DataTable>
     </div>
-
   </div>
 </template>
 
@@ -147,12 +173,26 @@ export default {
         upazila: "",
         union: "",
         ward: "",
+        holding: "",
+        collection_year: "",
       },
     };
   },
   computed: {
+    getYears() {
+      const years = [];
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      for (let i = currentYear - 10; i <= currentYear + 2; i++) {
+        years.push(`${i}-${i + 1}`);
+      }
+      return years;
+    },
     getDivisions() {
       return this.$store.getters["getGeodata"]["divisions"];
+    },
+    getDataList() {
+      return [...this.$store.getters["house/getData"]];
     },
     getDistricts() {
       let dist_list = this.$store.getters["getGeodata"]["districts"];
@@ -188,8 +228,7 @@ export default {
       return "";
     },
     getSortedList() {
-      let temp_data = this.data;
-
+      let temp_data = this.getDataList;
 
       if (!this.$auth.user.is_admin) {
         temp_data = temp_data.filter(({ user }) => {
@@ -216,61 +255,85 @@ export default {
           return this.form_data.union == union;
         });
       }
+
       if (this.form_data.ward) {
         temp_data = temp_data.filter(({ ward }) => {
           return this.form_data.ward == ward;
         });
         temp_data.sort((a, b) => {
           // Convert Bangla numbers to regular numbers for comparison
-          const banglaToNumeric = (str) => parseInt(str.replace(/[০-৯]/g, (match) => match.charCodeAt(0) - '০'.charCodeAt(0)));
+          const banglaToNumeric = (str) =>
+            parseInt(
+              str.replace(
+                /[০-৯]/g,
+                (match) => match.charCodeAt(0) - "০".charCodeAt(0)
+              )
+            );
 
           const numericA = banglaToNumeric(a.holding);
           const numericB = banglaToNumeric(b.holding);
 
           return numericA - numericB;
-      });
+        });
       }
-
-
+      if (this.form_data.holding) {
+        temp_data = temp_data.filter(({ holding }) => {
+          // return this.form_data.holding == holding;
+          return holding.includes(this.form_data.holding);
+        });
+      }
+      if (this.form_data.collection_year) {
+        temp_data = temp_data.filter(({ collection_year }) => {
+          return this.form_data.collection_year == collection_year;
+        });
+      }
 
       return temp_data;
     },
   },
   methods: {
-    convertToEngish(number){
-      const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-      const bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    convertToEngish(number) {
+      const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+      const bengaliNumbers = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
       // Convert each digit of the number
       const englishDigits = number
         .toString()
-        .split('')
-        .map(digit => (bengaliNumbers.includes(digit) ? englishNumbers[bengaliNumbers.indexOf(digit)] : digit));
-        return englishDigits.join('');
+        .split("")
+        .map((digit) =>
+          bengaliNumbers.includes(digit)
+            ? englishNumbers[bengaliNumbers.indexOf(digit)]
+            : digit
+        );
+      return englishDigits.join("");
     },
-    convertToBengali(number){
-      const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-      const bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    convertToBengali(number) {
+      const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+      const bengaliNumbers = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
       // Convert each digit of the number
       const bengaliDigits = number
         .toString()
-        .split('')
-        .map(digit => (englishNumbers.includes(digit) ? bengaliNumbers[englishNumbers.indexOf(digit)] : digit));
-        return bengaliDigits.join('');
+        .split("")
+        .map((digit) =>
+          englishNumbers.includes(digit)
+            ? bengaliNumbers[englishNumbers.indexOf(digit)]
+            : digit
+        );
+      return bengaliDigits.join("");
     },
-    async getData() {
-      await this.$axios
-        .get(`house`)
-        .then((res) => {
-          if (res.status === 200) {
-            this.data = res.data;
-          }
-        })
-        .catch((error) => {
-          console.log(error.response);
-          console.log(error.response.data.message || error.message);
-          // context.commit('error', error)
-        });
-    },
+    // async getData() {
+    //   await this.$axios
+    //     .get(`house`)
+    //     .then((res) => {
+    //       if (res.status === 200) {
+    //         this.data = res.data;
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.log(error.response);
+    //       console.log(error.response.data.message || error.message);
+    //       // context.commit('error', error)
+    //     });
+    // },
     async deleteData(data) {
       console.log(data);
       if (window.confirm("Are you sure ?")) {
@@ -283,7 +346,8 @@ export default {
               },
             })
             .then((res) => {
-              this.getData();
+              // this.getData();
+              this.$store.dispatch("house/get_data")
               this.$nuxt.$loading.finish();
             })
             .catch((error) => {
@@ -299,7 +363,12 @@ export default {
     },
   },
   mounted() {
-    this.getData();
+    // this.getData();
+  },
+  watch: {
+    "form_data.holding"() {
+      this.form_data.holding = this.convertToBengali(this.form_data.holding);
+    },
   },
 };
 </script>

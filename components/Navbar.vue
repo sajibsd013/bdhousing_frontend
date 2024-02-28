@@ -177,12 +177,12 @@
               >
                 <i class="icofont-support-faq me-2"></i>ট্যাক্স যাচাই
               </NuxtLink>
-              <NuxtLink
+              <!-- <NuxtLink
                 class="text-muted fw-semibold pb-3 app-nav-item"
                 to="/tax"
               >
                 <i class="icofont-support-faq me-2"></i>কর মূল্যয়ন তথ্য
-              </NuxtLink>
+              </NuxtLink> -->
               <NuxtLink
                 class="text-muted fw-semibold pb-3 app-nav-item"
                 to="/house"
