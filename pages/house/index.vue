@@ -598,6 +598,12 @@ export default {
     "form_data.remaining_due_tax"(){
       this.form_data.remaining_due_tax = this.convertToBengali(this.form_data.remaining_due_tax)
     },
+    "form_data.total_male"(){
+      this.form_data.total_male = this.convertToBengali(this.form_data.total_male)
+    },
+    "form_data.total_female"(){
+      this.form_data.total_female = this.convertToBengali(this.form_data.total_female)
+    },
   }
 };
 </script>
