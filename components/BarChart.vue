@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="card w-100">
     <div class="card-body">
       <highcharts :options="getChartData()"></highcharts>
@@ -125,4 +125,4 @@ export default {
     },
   },
 };
-</script>
+</script> -->

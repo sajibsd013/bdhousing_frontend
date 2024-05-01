@@ -52,7 +52,7 @@ export default {
     "~/plugins/vee-validate",
     { src: "~/plugins/bootstrap.js", mode: "client" },
     { src: "~/plugins/vue-datepicker", ssr: false },
-    { src: "~/plugins/highcharts.js", mode: "client" },
+    // { src: "~/plugins/highcharts.js", mode: "client" },
 
     // {
     //   src: "~/plugins/tawk-messenger.client.js",
