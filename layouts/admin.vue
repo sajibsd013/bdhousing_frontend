@@ -11,7 +11,6 @@
 export default {
   computed: {},
   mounted() {
-    console.log("Called Data!");
     this.$store.dispatch("get_data")
     this.$store.dispatch("house/get_data")
 

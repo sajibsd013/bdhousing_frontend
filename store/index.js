@@ -26,7 +26,6 @@ export const actions = {
         },
       })
       .then((res) => {
-        console.log(res);
         if (res.status === 200) {
           commit("setGeodata", res.data);
         }

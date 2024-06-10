@@ -72,7 +72,8 @@ export default {
         {
           icon: "icofont-users",
           key: "ব্যবহারকারী",
-          number: this.users.length,
+          // number: this.users.length,
+          number: 10,
           bg: "rgb(0 207 232)",
           url: "/admin/users",
         },
@@ -94,7 +95,8 @@ export default {
         {
           icon: "icofont-support-faq",
           key: "সচরাচর জিজ্ঞাসা",
-          number: this.faqs.length,
+          // number: this.faqs.length,
+          number: 11,
           bg: "rgb(234 84 85)",
           url: "/admin/faq",
         },
@@ -107,17 +109,21 @@ export default {
   },
   methods: {
     async getBalance() {
+
+      console.log('====================================');
+      console.log("getBalance");
+      console.log('====================================');
       await this.$axios
         .get(`balance`)
         .then((res) => {
           // if (res.status === 200) {
           // }
           this.sms = res.data.data;
-          console.log(res);
+          console.log("getBalance",res);
         })
         .catch((error) => {
-          console.log(error);
-          // console.log(error.response.data.message || error.message);
+          console.log("getBalance",error);
+          console.log(error.response.data.message || error.message);
           // context.commit('error', error)
         });
     },
@@ -192,10 +198,10 @@ export default {
     };
   },
   mounted() {
-    this.getFaqs();
+    // this.getFaqs();
     // this.getHouse();
     // this.getTax();
-    this.getUsers();
+    // this.getUsers();
     this.getBalance();
   },
 };
