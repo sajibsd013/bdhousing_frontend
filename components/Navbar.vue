@@ -220,7 +220,7 @@
       <img src="/img/icons/call.gif" class="rounded-circle" width="50" />
     </a>
 
-    <div class="mobile_header shadow d-block d-md-none p-2 pb-3 ">
+    <div class="mobile_header shadow d-block d-md-none p-2 pb-3">
       <div class="d-flex justify-content-between align-items-center">
         <div class="">
           <p class="text-light my-0 py-0 small">Hello,</p>
@@ -275,9 +275,7 @@ export default {
       this.show = false;
     },
   },
-  mounted() {
-    console.log("Called Navbar!");
-  },
+  mounted() {},
 };
 </script>
 <style scoped>
@@ -305,10 +303,10 @@ export default {
 }
 
 .mobile_nav .nav-link {
-  font-size: 12px!important;
+  font-size: 12px !important;
 }
 .mobile_nav i {
-  font-size: 16spx!important;
+  font-size: 16spx !important;
 }
 
 .__call {

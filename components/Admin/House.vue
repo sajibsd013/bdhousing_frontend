@@ -116,17 +116,19 @@
           />
         </div>
       </div>
-      <DataTable
+      <CustomDataTable
         title="খানা প্রদানের ট্যাক্স আদায়কৃত তথ্য"
         :columns="columns"
         :rows="getSortedList"
+        :tableData="table_data"
         class="table-responsive"
+        ref="data_table"
       >
         <th slot="thead-tr">Actions</th>
         <template slot="tbody-tr" scope="props">
           <td class="d-flex">
             <NuxtLink
-              :to="`/house?id=${props.row.id}`"
+              :to="`/house?id=${props.row.id}&page=${table_data.currentPage}`"
               class="btn red darken-2 waves-effect waves-light compact-btn"
             >
               <i class="material-icons white-text">edit</i>
@@ -139,7 +141,7 @@
             </button>
           </td>
         </template>
-      </DataTable>
+      </CustomDataTable>
     </div>
   </div>
 </template>
@@ -176,6 +178,9 @@ export default {
         ward: "",
         holding: "",
         collection_year: "",
+      },
+      table_data: {
+        currentPage: 1,
       },
     };
   },
@@ -293,6 +298,20 @@ export default {
     },
   },
   methods: {
+    changeURL() {
+      const dataTableComponent = this.$refs.data_table;
+      const materialPagination = dataTableComponent.$el.querySelector(
+        ".material-pagination"
+      );
+      materialPagination.addEventListener("click", () => {
+        this.$router.push({
+          query: {
+            ...this.$route.query,
+            page: this.table_data.currentPage,
+          },
+        });
+      });
+    },
     convertToEngish(number) {
       const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
       const bengaliNumbers = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
@@ -321,20 +340,6 @@ export default {
         );
       return bengaliDigits.join("");
     },
-    // async getData() {
-    //   await this.$axios
-    //     .get(`house`)
-    //     .then((res) => {
-    //       if (res.status === 200) {
-    //         this.data = res.data;
-    //       }
-    //     })
-    //     .catch((error) => {
-    //       console.log(error.response);
-    //       console.log(error.response.data.message || error.message);
-    //       // context.commit('error', error)
-    //     });
-    // },
     async deleteData(data) {
       console.log(data);
       if (window.confirm("Are you sure ?")) {
@@ -365,6 +370,13 @@ export default {
   },
   mounted() {
     // this.getData();
+
+    setTimeout(() => {
+      this.changeURL();
+      this.table_data["currentPage"] = this.$route.query["page"]
+        ? this.$route.query["page"]
+        : 1;
+    }, 1);
   },
   watch: {
     "form_data.holding"() {

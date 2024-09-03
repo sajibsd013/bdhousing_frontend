@@ -11,9 +11,8 @@
 export default {
   computed: {},
   mounted() {
-    this.$store.dispatch("get_data")
-    this.$store.dispatch("house/get_data")
-
+    this.$store.dispatch("get_data");
+    this.$store.dispatch("house/get_data");
   },
 };
 </script>
@@ -36,8 +35,7 @@ ul.material-pagination {
   min-height: 100vh !important;
 }
 .admin_root {
-    margin-left: 210px;
-
+  margin-left: 210px;
 }
 @media only screen and (max-width: 768px) {
   .admin_root {

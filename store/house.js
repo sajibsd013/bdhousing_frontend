@@ -13,22 +13,24 @@ export const mutations = {
     state.data = data;
   },
 };
-
 export const actions = {
-  async get_data({ commit }) {
+  async get_data({ commit, state }) {
+    // Check if data is already populated
+    if (state.data.length > 0) {
+      return; // Exit early if data is not empty
+    }
 
-    await this.$axios
-    .get(`house`)
-    .then((res) => {
+    try {
+      const res = await this.$axios.get("house");
+      console.log(res);
+
       if (res.status === 200) {
-        this.data = res.data;
         commit("setData", res.data);
       }
-    })
-    .catch((error) => {
+    } catch (error) {
       console.log(error.response);
       console.log(error.response.data.message || error.message);
-      // context.commit('error', error)
-    });
+      // Handle the error appropriately, e.g., commit an error mutation
+    }
   },
 };

@@ -108,7 +108,7 @@
                     <option :value="convertToBengali(number)" :key="number">
                       {{ convertToBengali(number) }}
                     </option>
-s
+                    s
                   </template>
                 </select>
               </div>
@@ -139,8 +139,6 @@ s
                 >
                 <input
                   class="form-control form-control-sm"
-                   
-
                   id="hall_tax"
                   required
                   v-model="form_data.hall_tax"
@@ -150,8 +148,6 @@ s
                 <label for="due_tax" class="small form-label">বকেয়া</label>
                 <input
                   class="form-control form-control-sm"
-                   
-
                   id="due_tax"
                   required
                   v-model="form_data.due_tax"
@@ -163,17 +159,16 @@ s
                 >
                 <input
                   class="form-control form-control-sm"
-                   
-
                   id="total_tax"
                   required
                   v-model="form_data.total_tax"
                 />
               </div>
               <div class="mb-2 col-md-4 col-lg-3 col-6">
-                <label for="due_tax" class="small form-label">অবশিষ্ট বকেয়া</label>
+                <label for="due_tax" class="small form-label"
+                  >অবশিষ্ট বকেয়া</label
+                >
                 <input
-                   
                   class="form-control form-control-sm"
                   id="due_tax"
                   required
@@ -203,7 +198,6 @@ s
                   >পরিবারের সদস্য (পুরুষ)</label
                 >
                 <input
-                   
                   class="form-control form-control-sm"
                   id="total_male"
                   required
@@ -215,7 +209,6 @@ s
                   >পরিবারের সদস্য (মহিলা)</label
                 >
                 <input
-                   
                   class="form-control form-control-sm"
                   id="total_female"
                   required
@@ -400,14 +393,13 @@ export default {
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
       for (let i = currentYear - 10; i <= currentYear + 2; i++) {
-        years.push(`${i}-${i+1}`);
+        years.push(`${i}-${i + 1}`);
       }
       return years;
     },
-    totalTex(){
-      return this.hall_tax+this.due_tax
-    }
-
+    totalTex() {
+      return this.hall_tax + this.due_tax;
+    },
   },
   data() {
     return {
@@ -444,7 +436,9 @@ export default {
         due_tax: "",
         total_tax: "",
         // collection_year: "২০২৩-২০২৪",
-        collection_year: this.convertToBengali(`${new Date().getFullYear()-1}-${new Date().getFullYear()}`),
+        collection_year: this.convertToBengali(
+          `${new Date().getFullYear() - 1}-${new Date().getFullYear()}`
+        ),
         date: "",
         mobile: "",
         village: "",
@@ -460,25 +454,33 @@ export default {
   },
 
   methods: {
-    convertToBengali(number){
-      const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-      const bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    convertToBengali(number) {
+      const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+      const bengaliNumbers = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
       // Convert each digit of the number
       const bengaliDigits = number
         .toString()
-        .split('')
-        .map(digit => (englishNumbers.includes(digit) ? bengaliNumbers[englishNumbers.indexOf(digit)] : digit));
-        return bengaliDigits.join('');
+        .split("")
+        .map((digit) =>
+          englishNumbers.includes(digit)
+            ? bengaliNumbers[englishNumbers.indexOf(digit)]
+            : digit
+        );
+      return bengaliDigits.join("");
     },
-    convertToEngish(number){
-      const englishNumbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-      const bengaliNumbers = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
+    convertToEngish(number) {
+      const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+      const bengaliNumbers = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
       // Convert each digit of the number
       const englishDigits = number
         .toString()
-        .split('')
-        .map(digit => (bengaliNumbers.includes(digit) ? englishNumbers[bengaliNumbers.indexOf(digit)] : digit));
-        return englishDigits.join('');
+        .split("")
+        .map((digit) =>
+          bengaliNumbers.includes(digit)
+            ? englishNumbers[bengaliNumbers.indexOf(digit)]
+            : digit
+        );
+      return englishDigits.join("");
     },
     submitForm() {
       if (this.$route.query["id"]) {
@@ -489,7 +491,7 @@ export default {
     },
     async addData() {
       this.form_data.user = this.getUserID;
-      this.form_data.msg = `হোল্ডিং ${this.form_data.holding}, ওয়ার্ড নং ${this.form_data.ward},${this.form_data.name}, আপনার ${this.form_data.collection_year} অর্থ বছর পর্যন্ত মোট ${this.form_data.total_tax} টাকা কর পরিশোধ করা হয়েছে,ধন্যবাদ।`
+      this.form_data.msg = `হোল্ডিং ${this.form_data.holding}, ওয়ার্ড নং ${this.form_data.ward},${this.form_data.name}, আপনার ${this.form_data.collection_year} অর্থ বছর পর্যন্ত মোট ${this.form_data.total_tax} টাকা কর পরিশোধ করা হয়েছে,ধন্যবাদ।`;
       this.$nextTick(() => {
         this.$nuxt.$loading.start();
         this.$axios
@@ -524,6 +526,7 @@ export default {
       return;
     },
     async updateData() {
+      this.form_data.msg = `হোল্ডিং ${this.form_data.holding}, ওয়ার্ড নং ${this.form_data.ward},${this.form_data.name}, আপনার ${this.form_data.collection_year} অর্থ বছর পর্যন্ত মোট ${this.form_data.total_tax} টাকা কর পরিশোধ করা হয়েছে,ধন্যবাদ।`;
       this.$nextTick(() => {
         this.$nuxt.$loading.start();
         this.$axios
@@ -581,30 +584,41 @@ export default {
     //   this.$router.push("/");
     // }
   },
-  watch:{
-    "form_data.due_tax"(){
+  watch: {
+    "form_data.due_tax"() {
       this.form_data.due_tax = this.convertToBengali(this.form_data.due_tax);
 
-      this.form_data.total_tax = this.convertToBengali(Number(this.convertToEngish(this.form_data.due_tax))+Number(this.convertToEngish(this.form_data.hall_tax)))
+      this.form_data.total_tax = this.convertToBengali(
+        Number(this.convertToEngish(this.form_data.due_tax)) +
+          Number(this.convertToEngish(this.form_data.hall_tax))
+      );
     },
-    "form_data.hall_tax"(){
+    "form_data.hall_tax"() {
       this.form_data.hall_tax = this.convertToBengali(this.form_data.hall_tax);
-      this.form_data.total_tax = this.convertToBengali(Number(this.convertToEngish(this.form_data.due_tax))+Number(this.convertToEngish(this.form_data.hall_tax)))
-
+      this.form_data.total_tax = this.convertToBengali(
+        Number(this.convertToEngish(this.form_data.due_tax)) +
+          Number(this.convertToEngish(this.form_data.hall_tax))
+      );
     },
-    "form_data.holding"(){
-      this.form_data.holding = this.convertToBengali(this.form_data.holding)
+    "form_data.holding"() {
+      this.form_data.holding = this.convertToBengali(this.form_data.holding);
     },
-    "form_data.remaining_due_tax"(){
-      this.form_data.remaining_due_tax = this.convertToBengali(this.form_data.remaining_due_tax)
+    "form_data.remaining_due_tax"() {
+      this.form_data.remaining_due_tax = this.convertToBengali(
+        this.form_data.remaining_due_tax
+      );
     },
-    "form_data.total_male"(){
-      this.form_data.total_male = this.convertToBengali(this.form_data.total_male)
+    "form_data.total_male"() {
+      this.form_data.total_male = this.convertToBengali(
+        this.form_data.total_male
+      );
     },
-    "form_data.total_female"(){
-      this.form_data.total_female = this.convertToBengali(this.form_data.total_female)
+    "form_data.total_female"() {
+      this.form_data.total_female = this.convertToBengali(
+        this.form_data.total_female
+      );
     },
-  }
+  },
 };
 </script>
 
