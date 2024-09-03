@@ -153,9 +153,7 @@ export default {
         { label: "নাম", field: "name" },
         { label: "পিতা/স্বামী", field: "father" },
         { label: "হোল্ডিং নম্বর", field: "holding" },
-        { label: "বিভাগ", field: "division" },
-        { label: "জেলা", field: "district" },
-        { label: "উপজেলা", field: "upazila" },
+
         { label: "ইউনিয়ন", field: "union" },
         { label: "ওয়ার্ড", field: "ward" },
         { label: "গ্রাম", field: "village" },
@@ -164,6 +162,9 @@ export default {
         { label: "মোট ট্যাক্স", field: "total_tax" },
         { label: "অবশিষ্ট বকেয়া", field: "remaining_due_tax" },
         { label: "আদায় সন", field: "collection_year" },
+        { label: "বিভাগ", field: "division" },
+        { label: "জেলা", field: "district" },
+        { label: "উপজেলা", field: "upazila" },
         { label: "তারিখ", field: "date" },
         { label: "মোবাইল নং", field: "mobile" },
       ],
@@ -347,7 +348,7 @@ export default {
             })
             .then((res) => {
               // this.getData();
-              this.$store.dispatch("house/get_data")
+              this.$store.dispatch("house/get_data");
               this.$nuxt.$loading.finish();
             })
             .catch((error) => {

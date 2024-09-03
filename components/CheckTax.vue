@@ -137,11 +137,11 @@
     <div class="result my-2" v-if="result.status">
       <div v-if="result.status == 200">
         <div class="alert alert-success text-center" role="alert">
-          অভিনন্দন! ইতিমধ্যে কর আপনার প্রদান করা হয়েছে
+          ট্যাক্স যাচাই করার জন্য আপনাকে ধন্যবাদ
         </div>
         <PDF :result="result" />
         <div class="d-flex justify-content-center">
-          <a 
+          <a
             target="_blank"
             :href="newurl"
             class="btn btn-outline-dark btn-sm my-2 me-1"
@@ -275,8 +275,6 @@ export default {
     };
   },
   methods: {
-
-
     convertToBengali(number) {
       const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
       const bengaliNumbers = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
