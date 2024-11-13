@@ -1,7 +1,6 @@
 <template>
   <div class="card p-2 my-3 border-0">
     <div>
-      <!-- {{ getDataList }} -->
       <div class="row">
         <div class="mb-2 col-md-2 col-6">
           <label for="Division " class="small form-label">বিভাগ</label>
@@ -89,6 +88,22 @@
             </template>
           </select>
         </div>
+        <div class="mb-2 col-md-2 col-6">
+          <label for="union" class="small form-label">গ্রাম</label>
+          <select
+            class="form-select form-select-sm"
+            aria-label="Default select example"
+            v-model="form_data.village"
+            required
+          >
+            <option value="" selected>All</option>
+            <template v-for="data in villages">
+              <option :value="data" :key="data">
+                {{ data }}
+              </option>
+            </template>
+          </select>
+        </div>
 
         <div class="mb-2 col-md-2 col-6">
           <label for="collection_year" class="small form-label">আদায় সন</label>
@@ -115,6 +130,27 @@
             v-model="form_data.holding"
           />
         </div>
+        <hr>
+        <div class="col-12" v-if="villages.length > 0">
+          <label for=" " class="form-label">Filter</label>
+
+          <div class="d-flex flex-wrap">
+            <template v-for="data in villages">
+              <div class="mb-0 me-3" :key="data">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  :value="data"
+                  :id="data"
+                  v-model="ignore_list"
+                />
+                <label class="form-check-label" :for="data">
+                  {{ data }}
+                </label>
+              </div>
+            </template>
+          </div>
+          </div>
       </div>
       <CustomDataTable
         title="খানা প্রদানের ট্যাক্স আদায়কৃত তথ্য"
@@ -178,7 +214,11 @@ export default {
         ward: "",
         holding: "",
         collection_year: "",
+        village: "",
       },
+      ignore_list: [],
+
+      villages: [],
       table_data: {
         currentPage: 1,
       },
@@ -189,7 +229,7 @@ export default {
       const years = [];
       const currentDate = new Date();
       const currentYear = currentDate.getFullYear();
-      for (let i = currentYear - 10; i <= currentYear + 2; i++) {
+      for (let i = currentYear - 10; i <= currentYear + 20; i++) {
         years.push(`${i}-${i + 1}`);
       }
       return years;
@@ -261,6 +301,11 @@ export default {
           return this.form_data.union == union;
         });
       }
+      if (this.form_data.village) {
+        temp_data = temp_data.filter(({ village }) => {
+          return this.form_data.village == village;
+        });
+      }
 
       if (this.form_data.ward) {
         temp_data = temp_data.filter(({ ward }) => {
@@ -293,9 +338,26 @@ export default {
           return this.form_data.collection_year == collection_year;
         });
       }
+      if (this.ignore_list.length) {
+        temp_data = temp_data.filter(({ village }) => {
+          return !this.ignore_list.includes(village);
+        });
+      }
+
 
       return temp_data;
     },
+    getVillage(){
+      if (this.form_data.union && this.form_data.ward){
+        let arr  = [...this.getSortedList];
+        arr = arr.map((x)=> x.village)
+        const arrSet = new Set(arr);
+
+        console.log(arrSet)
+        return Array.from(arrSet)
+      }
+      return []
+    }
   },
   methods: {
     changeURL() {
@@ -382,6 +444,11 @@ export default {
     "form_data.holding"() {
       this.form_data.holding = this.convertToBengali(this.form_data.holding);
     },
+    "form_data.ward"() {
+      this.form_data.village = "";
+      this.ignore_list = []
+      this.villages = this.getVillage;
+    }
   },
 };
 </script>

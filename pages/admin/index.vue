@@ -13,12 +13,12 @@
         >
           <div class="row">
             <div
-              class="col-6 text-start d-flex flex-column justify-content-center"
+              class="col-8 text-start d-flex flex-column justify-content-center"
             >
-              <h2 class="py-0 my-0 text-light">{{ data.number }}</h2>
-              <h6 class="py-0 my-1 fw-semibold text-light">{{ data.key }}</h6>
+              <h2 class="py-0 my-0 fw-semibold  text-light">{{ data.number }}</h2>
+              <h5 class="py-0 my-1 text-light">{{ data.key }}</h5>
             </div>
-            <div class="col-6 d-flex justify-content-center align-items-center">
+            <div class="col-4 d-flex justify-content-center align-items-center">
               <i
                 class="text-light rounded-circle p-2 p-sm-3 _card_icon"
                 :class="data.icon"
@@ -28,14 +28,14 @@
         </NuxtLink>
       </div>
     </div>
-    <div class="row">
+    <div class="row g-2">
       <div class="col-lg-8 col-md-7">
         <div class="card h-100 _card shadow border-0 p-2 p-sm-4" v-if="this.$auth.user.is_admin">
           <div class="row ">
             <div
               class="col-9 text-start d-flex flex-column justify-content-center"
             >
-              <h6>Current Balance : {{ sms.balance }} BDT or {{ Math.round(parseFloat(sms.balance)/parseFloat(sms.rate)) }} SMS</h6>
+              <h6>Balance : {{ sms.balance }} BDT or {{ Math.round(parseFloat(sms.balance)/parseFloat(sms.rate)) }} SMS</h6>
               <h6>SMS Rate : {{ sms.rate }} BDT/SMS</h6>
               <h6>Expire Date : {{ sms.expiry }}</h6>
               <a href="https://sms.greenweb.com.bd/ordernow.php" target="_blank">Buy SMS</a>
@@ -44,7 +44,7 @@
               <i
                 class="text-light rounded-circle p-2 p-sm-3 _card_icon icofont-taka"
               ></i>
-             
+
             </div>
           </div>
 
@@ -214,6 +214,10 @@ export default {
   /* opacity: 0.4; */
 }
 @media only screen and (max-width: 600px) {
+  ._card h2, ._card h5{
+    font-size: 16px !important;
+
+  }
   ._card_icon {
     font-size: 30px !important;
   }
