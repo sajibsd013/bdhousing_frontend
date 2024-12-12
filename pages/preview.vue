@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PDF :result="result" />
+    <PDF :data="data" />
     <div class="d-flex justify-content-center">
       <button
         @click="downloadPdf"
@@ -22,7 +22,7 @@ export default {
   layout: "download",
   data() {
     return {
-      result: {},
+      data: {},
     };
   },
   methods: {
@@ -39,7 +39,7 @@ export default {
         const pdfWidth = pdf.internal.pageSize.getWidth();
         const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
         pdf.addImage(dataUrl, "PNG", 0, 0, pdfWidth, pdfHeight);
-        pdf.save(`${this.result.data.id}.pdf`);
+        pdf.save(`${this.data.id}.pdf`);
       } catch (error) {
         console.error("Error generating PDF", error);
       }
@@ -87,8 +87,8 @@ export default {
     },
   },
   mounted() {
-    this.result = JSON.parse(this.$route.query.result);
-    console.log(this.$route.query.result, this.result);
+    this.data = JSON.parse(this.$route.query.data);
+    console.log(this.$route.query.data, this.data);
   },
 };
 </script>

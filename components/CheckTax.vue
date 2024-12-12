@@ -2,7 +2,7 @@
   <div class="mx-auto py-3">
     <div class="p-3 card bg-white border">
       <h6 class="mb fw-semibold">ট্যাক্স যাচাই</h6>
-      <hr />
+      <hr/>
       <ValidationObserver v-slot="{ handleSubmit }">
         <form class="form small" @submit.prevent="handleSubmit(checkTax)">
           <div class="row g-2">
@@ -112,7 +112,7 @@
 
             <div class="mb-2 col-md-4 col-lg-3 col-6">
               <label for="holding" class="small form-label"
-                >হোল্ডিং নম্বর</label
+              >হোল্ডিং নম্বর</label
               >
               <input
                 class="form-control form-control-sm"
@@ -133,32 +133,36 @@
         </form>
       </ValidationObserver>
     </div>
-    <hr />
-    <div class="result my-2" v-if="result.status">
+    <hr/>
+    <div class="result my-2 " v-if="result.status">
       <div v-if="result.status == 200">
         <div class="alert alert-success text-center" role="alert">
           ট্যাক্স যাচাই করার জন্য আপনাকে ধন্যবাদ
         </div>
-        <PDF :result="result" />
-        <div class="d-flex justify-content-center">
-          <a
-            target="_blank"
-            :href="newurl"
-            class="btn btn-outline-dark btn-sm my-2 me-1"
-          >
-            Download <i class="icofont-download"></i>
-          </a>
-        </div>
+        <template v-for="data in result.data">
+          <PDF :data="data"/>
+          <div class="d-flex justify-content-center">
+            <a
+              target="_blank"
+              :href="newurl({...data})"
+              class="btn btn-outline-dark btn-sm my-2 me-1"
+            >
+              Download <i class="icofont-download"></i>
+            </a>
+          </div>
+        </template>
+
       </div>
       <div class="alert alert-danger text-center" role="alert" v-else>
-        দুঃখিত! আপনার তথ্য পাওয়া যায় নি
+        দুঃখিত! আপনার তথ্য পাওয়া যায় নি
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ValidationObserver, ValidationProvider } from "vee-validate";
+import {ValidationObserver, ValidationProvider} from "vee-validate";
+
 export default {
   name: "checktax",
   components: {
@@ -166,13 +170,6 @@ export default {
     ValidationProvider,
   },
   computed: {
-    newurl() {
-      const result = JSON.stringify(this.result);
-      // Construct the new URL with the query string
-      const newUrl = `preview/?result=${result}`;
-      // Redirect to the new URL
-      return newUrl;
-    },
     getDivisions() {
       return this.$store.getters["getGeodata"]["divisions"];
     },
@@ -180,12 +177,12 @@ export default {
       let dist_list = this.$store.getters["getGeodata"]["districts"];
       if (this.getDivisions && this.form_data.division) {
         let all_div = this.getDivisions;
-        const selected_data = all_div.find(({ bn_name }) => {
+        const selected_data = all_div.find(({bn_name}) => {
           return bn_name == this.form_data.division;
         });
 
         if (dist_list && selected_data) {
-          dist_list = dist_list.filter(({ division_id }) => {
+          dist_list = dist_list.filter(({division_id}) => {
             return selected_data["id"] == division_id;
           });
         }
@@ -203,12 +200,12 @@ export default {
         this.form_data.division
       ) {
         let all_div = this.getDistricts;
-        const selected_data = all_div.find(({ bn_name }) => {
+        const selected_data = all_div.find(({bn_name}) => {
           return bn_name == this.form_data.district;
         });
 
         if (up_list && selected_data) {
-          up_list = up_list.filter(({ district_id }) => {
+          up_list = up_list.filter(({district_id}) => {
             return selected_data["id"] == district_id;
           });
         }
@@ -227,12 +224,12 @@ export default {
         this.form_data.division
       ) {
         let all_div = this.getUpazilas;
-        const selected_data = all_div.find(({ bn_name }) => {
+        const selected_data = all_div.find(({bn_name}) => {
           return bn_name == this.form_data.upazila;
         });
 
         if (un_list && selected_data) {
-          un_list = un_list.filter(({ upazilla_id }) => {
+          un_list = un_list.filter(({upazilla_id}) => {
             return selected_data["id"] == upazilla_id;
           });
         }
@@ -270,11 +267,19 @@ export default {
       },
       result: {
         status: null,
-        data: null,
+        data: [],
       },
     };
   },
   methods: {
+    newurl(data) {
+      console.log(data);
+      data = JSON.stringify(data);
+      // Construct the new URL with the query string
+      const newUrl = `preview/?data=${data}`;
+      // Redirect to the new URL
+      return newUrl;
+    },
     convertToBengali(number) {
       const englishNumbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
       const bengaliNumbers = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
@@ -316,7 +321,7 @@ export default {
             this.result.status = res.status;
             if (res.status === 200) {
               console.log(res.data);
-              this.result.data = res.data[0];
+              this.result.data = res.data;
 
               this.$toast.success("Success!");
               // this.$router.push("/success?q=house");
@@ -334,7 +339,8 @@ export default {
       return;
     },
   },
-  mounted() {},
+  mounted() {
+  },
 
   watch: {
     "form_data.holding"() {
