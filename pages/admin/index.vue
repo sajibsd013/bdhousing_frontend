@@ -103,8 +103,20 @@ export default {
       ];
       return data;
     },
+    getUserID() {
+      if (this.$auth.user.id) {
+        return this.$auth.user.id;
+      }
+      return "";
+    },
     getDataList() {
-      return [...this.$store.getters["house/getData"]];
+      let temp_data = [...this.$store.getters["house/getData"]]
+      if (!this.$auth.user.is_admin) {
+        temp_data = temp_data.filter(({ user }) => {
+          return this.getUserID == user;
+        });
+      }
+      return temp_data;
     },
   },
   methods: {

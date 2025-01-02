@@ -20,6 +20,9 @@
         <NLink class="nav-link" to="/about"> আমাদের সম্পর্কে </NLink>
       </li>
       <li class="nav-item">
+        <NLink class="nav-link" to="/blog"> ব্লগ </NLink>
+      </li>
+      <li class="nav-item">
         <NLink class="nav-link" to="/contact-us"> যোগাযোগ করুন</NLink>
       </li>
     </ul>
